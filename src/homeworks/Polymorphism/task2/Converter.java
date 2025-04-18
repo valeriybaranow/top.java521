@@ -1,13 +1,5 @@
 package homeworks.Polymorphism.task2;
 
-import com.company.task2.units.length.Centimeter;
-import com.company.task2.units.length.Foot;
-import com.company.task2.units.length.Millimeters;
-import com.company.task2.units.temperature.Fahrenheit;
-import com.company.task2.units.temperature.Kelvin;
-import com.company.task2.units.weight.Centner;
-import com.company.task2.units.weight.Tons;
-
 /*
     Задача 2: Конвертер единиц
         1. Создайте класс Converter, который будет выполнять преобразования между различными единицами измерения с использованием статического полиморфизма.
@@ -15,6 +7,14 @@ import com.company.task2.units.weight.Tons;
         3. Обеспечьте различные варианты перегруженных методов для каждого типа конвертации, например, convertLength() может конвертировать длину из метров в футы, сантиметры или миллиметры, а также из других единиц измерения длины.
         4. Продемонстрируйте использование перегруженных методов Converter в main().
  */
+
+import homeworks.Polymorphism.task2.units.length.Centimeter;
+import homeworks.Polymorphism.task2.units.length.Foot;
+import homeworks.Polymorphism.task2.units.length.Millimeters;
+import homeworks.Polymorphism.task2.units.temperature.Fahrenheit;
+import homeworks.Polymorphism.task2.units.temperature.Kelvin;
+import homeworks.Polymorphism.task2.units.weight.Centner;
+import homeworks.Polymorphism.task2.units.weight.Tons;
 
 public class Converter {
     public static void main(String[] args) {

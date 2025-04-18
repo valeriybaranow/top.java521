@@ -22,8 +22,7 @@ public class DataContainer <T extends Object> {
     // добавление элементов
     public void add(T item) {
         System.out.println("Добавление элемента " + item);
-        T[] newArray = Arrays.copyOf(container, container.length + 1);
-        container = newArray;
+        container = Arrays.copyOf(container, container.length + 1);
         container[container.length - 1] = item;
     }
 

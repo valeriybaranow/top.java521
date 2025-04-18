@@ -1,11 +1,11 @@
 package lessons.Abstraction;
 
-import com.company.abstraction.home.HomeAppliance;
-import com.company.abstraction.home.RobotVacuum;
-import com.company.abstraction.home.SmartKettle;
-import com.company.abstraction.person.Person;
-import com.company.abstraction.shape.Rectagle;
-import com.company.abstraction.shape.Shape1;
+
+import lessons.Abstraction.home.HomeAppliance;
+import lessons.Abstraction.home.RobotVacuum;
+import lessons.Abstraction.home.SmartKettle;
+import lessons.Abstraction.person.Person;
+import lessons.Abstraction.shape.Rectagle;
 
 import java.awt.*;
 
@@ -17,13 +17,12 @@ public class Main {
         // Статический метод у интерфейса не наследуется, а у класса наследуется
 
         // объект анонимного класса (от абстракции)
-        Shape1 shape = new Rectagle(Color.BLACK, 4, 3) {
-            public double getArea() {
-                return 0;
-            }
-        };
-
-        System.out.println(shape.getArea());
+//        Shape shape = new Rectagle(Color.BLACK, 4, 3) {
+//            public double getArea() {
+//                return 0;
+//            }
+//        };
+//        System.out.println(shape.getArea());
 
 //        Circle circle = new Circle(Color.YELLOW, 521);
 //        circle.printInfo();

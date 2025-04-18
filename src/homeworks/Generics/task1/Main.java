@@ -33,5 +33,6 @@ public class Main {
             }
         }
         return true;
+        //        return arrayOne.equals(arrayTwo);
     }
 }

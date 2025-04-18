@@ -1,8 +1,5 @@
 package homeworks.Abstraction.task1;
 
-import task1.AudioPlayer;
-import task1.MediaPlayer;
-import task1.VideoPlayer;
 
 public class Main {
 

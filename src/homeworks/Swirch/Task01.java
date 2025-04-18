@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Task01 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        String result; // проверить эту строчку
+        String result = null; // проверить эту строчку
         int number;
         do {
             System.out.print("Введите номер месяца (1-12) или введите exit для выхода: ");

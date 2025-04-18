@@ -1,9 +1,5 @@
 package homeworks.Abstraction.task2;
 
-import task1.AudioPlayer;
-import task1.MediaPlayer;
-import task1.VideoPlayer;
-
 /*
     Задача 2*: Файловый менеджер
     1. Создайте интерфейс FileManager, который определяет методы для копирования и удаления файлов.

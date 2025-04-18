@@ -17,9 +17,6 @@ public class Main {
         String[] stringsTwo = {"neighbour", "washes", "dishes"};
         String[] stringsResult = merge(stringsOne, stringsTwo);
         System.out.println(Arrays.deepToString(stringsResult));
-
-
-//        System.out.println(Arrays.toString(merge(stringsOne, stringsTwo)));
     }
 
     public static <T> T[]  merge(T[] arrayOne, T[] arrayTwo) {

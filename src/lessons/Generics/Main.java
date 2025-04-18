@@ -25,16 +25,16 @@ public class Main {
     public static <T> T concat(T[] array){
         if (array.length == 0) return null;
         if (array instanceof Number[]){
-               double sum = 0;
-               for (T num : array) {
-                   sum += ((Number) num).doubleValue();
-               }
-               return (T) Double.valueOf(sum);
-            }
-            StringBuilder sb = new StringBuilder();
-            for (T element : array){
-                sb.append(element + "\n");
-            }
-            return (T) sb.toString();
+           double sum = 0;
+           for (T num : array) {
+               sum += ((Number) num).doubleValue();
+           }
+           return (T) Double.valueOf(sum);
+        }
+        StringBuilder sb = new StringBuilder();
+        for (T element : array){
+            sb.append(element + "\n");
+        }
+        return (T) sb.toString();
     }
 }
