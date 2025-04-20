@@ -1,6 +1,9 @@
 package homeworks.ArrayList;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.List;
 
 /*
     1. Создайте класс компании Company, содержащей сотрудников и реализующей методы:
@@ -12,22 +15,32 @@ import java.util.*;
     Аргументы и возвращаемое значение методов выберите на основании логики работы вашего приложения.
  */
 public class Company {
-    private List<Employee> employees = new ArrayList<>();
-    private double income;
+    private final List<Employee> employees = new ArrayList<>();
+    // доход компании
+    private int income;
+    private String name;
 
-    // Возвращающие список указанной длины (count). Они должны содержать сотрудников, отсортированных по возрастанию заработной платы
+    public Company(String $name) {
+        this.name = $name;
+    }
+
+    // Возвращающие список указанной длины (count).
+    // Они должны содержать сотрудников, отсортированных по возрастанию заработной платы
     List<Employee> getTopSalaryStaff(int count) {
-        List<Employee> copy = List.copyOf(employees);
-//        Collections.sort(copy);
+        List<Employee> copy = new ArrayList<>(employees);
+        copy.sort(Comparator.naturalOrder());
+        System.out.println(copy);
         return copy.subList(0, count);
     }
 
-    // Возвращающие список указанной длины (count). Они должны содержать сотрудников, отсортированных по убыванию заработной платы
+    // Возвращающие список указанной длины (count).
+    // Они должны содержать сотрудников, отсортированных по убыванию заработной платы
     List<Employee> getLowestSalaryStaff(int count) {
-        List<Employee> copy = List.copyOf(employees);
-//        copy.sort(Comparator.naturalOrder());
+        List<Employee> copy = new ArrayList<>(employees);
+        copy.sort(Comparator.reverseOrder());
         return employees.subList(0, count);
     }
+
     // найм одного сотрудника
     public void hire(Employee employee) {
         employees.add(employee);
@@ -35,6 +48,7 @@ public class Company {
 
     //  найм списка сотрудников
     public void hireAll(Collection<Employee> employes) {
+        // TODO: нужно сделать расчет дохода компании
         this.employees.addAll(employes);
     }
 
@@ -50,5 +64,11 @@ public class Company {
 
     public void addIncome(double income) {
         this.income += income;
+    }
+
+    @Override
+    public String toString() {
+        return "Компания " + name + " количество сотрудников - " + employees.size() +
+                " доход=" + income;
     }
 }

@@ -1,16 +1,16 @@
 package homeworks.ArrayList;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        final int COUNT_OPERATOR = 180;
-        final int COUNT_MANAGER = 80;
+        final int COUNT_OPERATOR = 10;
+        final int COUNT_MANAGER = 10;
         final int COUNT_IOP_MANAGER = 10;
-        Company company = new Company();
+
+        // подготовка
+        Company company = new Company("Академия ТОП");
         ArrayList<Employee> employees = new ArrayList<>();
         for (int i = 0; i < COUNT_OPERATOR; i++) {
             employees.add(new Operator());
@@ -23,9 +23,13 @@ public class Main {
         }
         // перемешать или рандомизировать
         Collections.shuffle(employees);
-        company.hireAll(employees);
-        System.out.println("Доход компании " + company.getIncome());
 
+
+        // найм
+        System.out.println("Найм в компанию " + company);
+        company.hireAll(employees);
+        System.out.println("Компания " + company + " наняла сотрудников");
+        // вывод
         System.out.println("Список самых высоких зарплат в компании " + company);
         for (Employee employee : company.getTopSalaryStaff(10)) {
             System.out.println(employee);
@@ -34,9 +38,13 @@ public class Main {
         for (Employee employee : company.getLowestSalaryStaff(30)) {
             System.out.println(employee);
         }
-        for (int i = 0; i < (COUNT_IOP_MANAGER + COUNT_MANAGER + COUNT_IOP_MANAGER) / 2 ; i++) {
+
+        // увольнение
+        for (int i = 0; i < (COUNT_IOP_MANAGER + COUNT_MANAGER + COUNT_IOP_MANAGER) / 2; i++) {
             employees.remove(employees.get(i));
         }
+
+        // вывод
         System.out.println("Список самых высоких зарплат в компании " + company);
         for (Employee employee : company.getTopSalaryStaff(10)) {
             System.out.println(employee);

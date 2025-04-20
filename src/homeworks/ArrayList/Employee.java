@@ -5,9 +5,12 @@ interface Employee extends Comparable<Employee> {
 
     @Override
     default int compareTo(Employee o) {
-        if (this.getMonthSalary() == o.getMonthSalary()) {
+        if (this.getMonthSalary() < o.getMonthSalary()) {
+            return -1;
+        } else if (this.getMonthSalary() > o.getMonthSalary()) {
+            return 1;
+        } else {
             return 0;
         }
-        return this.getMonthSalary() > o.getMonthSalary() ? 1 : 0;
     }
 }

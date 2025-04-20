@@ -1,6 +1,5 @@
 package lessons.ArrayList.Stack;
 
-import java.util.Scanner;
 
 public class Menu {
 
