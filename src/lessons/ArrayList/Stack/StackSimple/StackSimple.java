@@ -1,42 +1,46 @@
-package lessons.ArrayList.Stack;
+package lessons.ArrayList.Stack.StackSimple;
 
 import java.util.ArrayList;
-import java.util.EmptyStackException;
 import java.util.List;
 
 /*
-    Задание 3.
-    Измените класс стека из задания 1 сделав его шаблонным
+     Задание 2
+     Измените стек из первого задания, таким образом, чтобы его размер был нефиксированным
  */
-public class StackWithParameters<T> {
+public class StackSimple {
     final int CAPACITY = 10;
-    List<T> items = new ArrayList<>();
+    List<Integer> items = new ArrayList<>();
     int index = -1;
 
     // нажимать
-    public void push(T value) {
+    public void push(int value) throws Exception {
         if (!full()) {
             items.add(value);
             index++;
         } else {
-            throw new StackOverflowError();
+            throw new Exception();
         }
     }
 
     // выталкивать
-    public T pop() {
+    public Integer pop() throws Exception {
         if (!empty()) {
-            T temp = items.get(index);
-            items.remove(items.get(index));
+            int temp = items.get(index);
+            items.remove(index);
             index--;
             return temp;
         }
-        throw new EmptyStackException();
+        throw new Exception();
     }
 
     // искать
-    public T seek() {
+    public Integer seek() {
         return items.get(index);
+    }
+
+    // искать
+    public int size() {
+        return index + 1;
     }
 
     public boolean empty() {
@@ -47,6 +51,7 @@ public class StackWithParameters<T> {
         return index == CAPACITY - 1;
     }
 
+    // TODO: заполнить нулями пустые значения стека
     public void clear() {
         items = new ArrayList<>();
         index = -1;

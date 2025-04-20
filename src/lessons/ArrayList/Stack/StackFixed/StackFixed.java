@@ -1,10 +1,10 @@
-package lessons.ArrayList.Stack;
+package lessons.ArrayList.Stack.StackFixed;
 
 import java.util.Arrays;
 import java.util.EmptyStackException;
 
 /*
-Задание 1
+Задание 1.
      Реализуйте класс стека для работы с целыми значениями (стек целых). Стек должен иметь фиксированный размер.
      Реализуйте набор операций для работы со стеком:
      ■ помещение целого значения в стек,
@@ -21,7 +21,7 @@ public class StackFixed {
     int[] items = new int[CAPACITY];
     int index = -1;
 
-    // нажимать
+    // помещение целого значения в стек
     public void push(int value) {
         if (!full()) {
             index++;
@@ -31,7 +31,7 @@ public class StackFixed {
         }
     }
 
-    // выталкивать
+    // выталкивание целого значения из стека,
     public int pop() {
         if (!empty()) {
             int temp = items[index];
@@ -42,24 +42,33 @@ public class StackFixed {
         throw new EmptyStackException();
     }
 
-    // искать
-    public int seek() {
-        return items[index];
+    // подсчет количества целых в стеке,
+    public int size() {
+        return index + 1;
     }
 
+    // проверку пустой ли стек,
     public boolean empty() {
         return index == - 1;
     }
 
+    // проверку полный ли стек,
     public boolean full() {
         return index == CAPACITY - 1;
     }
 
+    // очистку стека
     public void clear() {
         Arrays.fill(items, 0);
         index = -1;
     }
 
+    // получение значения без выталкивания верхнего целого в стеке
+    public int seek() {
+        return items[index];
+    }
+
+    // вывести стек на экран
     public void printItems() {
         System.out.println(Arrays.toString(items));
     }
