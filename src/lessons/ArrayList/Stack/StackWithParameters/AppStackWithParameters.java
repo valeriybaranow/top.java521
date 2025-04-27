@@ -17,7 +17,7 @@ public class AppStackWithParameters<T> {
             switch (menuItem) {
                 case 1:
                     scanner.nextLine();
-                    System.out.printf("Введите значение для добавления в стек: ");
+                    System.out.print("Введите значение для добавления в стек: ");
                     try {
                         stack.push((T) scanner.nextLine());
                         System.out.println("Значение добавлено в стек");
@@ -34,7 +34,7 @@ public class AppStackWithParameters<T> {
                     }
                     break;
                 case 3:
-                    System.out.println("Размер стека - " + stack.size());
+                    System.out.println("Количество значений - " + stack.size());
                     break;
                 case 4:
                     System.out.println(stack.empty() ? "стек пустой" : "стек не пустой");
@@ -56,9 +56,8 @@ public class AppStackWithParameters<T> {
                     System.out.println("Работа программы завершена");
                     return;
             }
-            System.out.printf("Для продолжения нажмите любой символ: ");
+            System.out.print("Для продолжения нажмите любой символ: ");
             scanner.next();
         }
     }
-
 }

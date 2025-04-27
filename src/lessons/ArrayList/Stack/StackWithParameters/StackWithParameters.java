@@ -4,10 +4,6 @@ import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.List;
 
-/*
-    Задание 3.
-    Измените класс стека из задания 1 сделав его шаблонным
- */
 public class StackWithParameters<T> {
     final int CAPACITY = 10;
     List<T> items = new ArrayList<>();
@@ -36,7 +32,7 @@ public class StackWithParameters<T> {
 
     // искать
     public int size() {
-        return index - 1;
+        return index + 1;
     }
 
     // искать

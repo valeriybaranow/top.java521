@@ -1,7 +1,6 @@
 package lessons.ArrayList.Stack.StackFixed;
 
 import lessons.ArrayList.Stack.Menu;
-import lessons.ArrayList.Stack.StackSimple.StackSimple;
 
 import java.util.Scanner;
 
@@ -17,7 +16,7 @@ public class AppStackFixed {
             menuItem = scanner.nextInt();
             switch (menuItem) {
                 case 1:
-                    System.out.printf("Введите число для добавления в стек: ");
+                    System.out.print("Введите число для добавления в стек: ");
                     try {
                         stack.push(scanner.nextInt());
                         System.out.println("Значение добавлено в стек");
@@ -56,8 +55,6 @@ public class AppStackFixed {
                     System.out.println("Работа программы завершена");
                     return;
             }
-            System.out.printf("Для продолжения нажмите любой символ: ");
-            scanner.next();
         }
     }
 }

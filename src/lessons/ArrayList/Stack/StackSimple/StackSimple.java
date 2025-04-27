@@ -3,10 +3,6 @@ package lessons.ArrayList.Stack.StackSimple;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
-     Задание 2
-     Измените стек из первого задания, таким образом, чтобы его размер был нефиксированным
- */
 public class StackSimple {
     final int CAPACITY = 10;
     List<Integer> items = new ArrayList<>();

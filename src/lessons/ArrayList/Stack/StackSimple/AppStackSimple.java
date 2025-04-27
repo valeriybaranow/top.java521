@@ -16,7 +16,7 @@ public class AppStackSimple {
             menuItem = scanner.nextInt();
             switch (menuItem) {
                 case 1:
-                    System.out.printf("Введите число для добавления в стек: ");
+                    System.out.print("Введите число для добавления в стек: ");
                     try {
                         stack.push(scanner.nextInt());
                         System.out.println("Значение добавлено в стек");
@@ -55,7 +55,7 @@ public class AppStackSimple {
                     System.out.println("Работа программы завершена");
                     return;
             }
-            System.out.printf("Для продолжения нажмите любой символ: ");
+            System.out.print("Для продолжения нажмите любой символ: ");
             scanner.next();
         }
     }

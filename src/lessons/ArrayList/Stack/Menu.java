@@ -17,6 +17,6 @@ public class Menu {
         System.out.println("7 - получить значения без выталкивания верхнего целого в стеке");
         System.out.println("8 - отобразить стек");
         System.out.println("9 - для выхода из программы");
-        System.out.printf("Выберите пункт меню: ");
+        System.out.print("Выберите пункт меню: ");
     }
 }
