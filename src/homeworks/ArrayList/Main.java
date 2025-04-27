@@ -3,11 +3,20 @@ package homeworks.ArrayList;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/*
+    1. Создайте класс компании Company, содержащей сотрудников и реализующей методы:
+    - найм одного сотрудника — hire(Employee employee),
+    - найм списка сотрудников – hireAll(Collection<Employee> employes),
+    - увольнение сотрудника – fire(Employee employee),
+    - получение значения дохода компании – getIncome().
+    Каждый метод НЕ должен иметь модификатор static, это позволит каждому объекту класса Company иметь свой набора сотрудников, свой расчет дохода, увольнение и найм.
+    Аргументы и возвращаемое значение методов выберите на основании логики работы вашего приложения.
+ */
 public class Main {
     public static void main(String[] args) {
-        final int COUNT_OPERATOR = 10;
-        final int COUNT_MANAGER = 10;
-        final int COUNT_IOP_MANAGER = 10;
+        final int COUNT_OPERATOR = 5;
+        final int COUNT_MANAGER = 5;
+        final int COUNT_IOP_MANAGER = 2;
 
         // подготовка
         Company company = new Company("Академия ТОП");
@@ -24,34 +33,24 @@ public class Main {
         // перемешать или рандомизировать
         Collections.shuffle(employees);
 
-
         // найм
-        System.out.println("Найм в компанию " + company);
+        System.out.println("1. Создана компания: " + company);
         company.hireAll(employees);
-        System.out.println("Компания " + company + " наняла сотрудников");
+        System.out.println("2. Прошел найм в компанию: " + company);
         // вывод
-        System.out.println("Список самых высоких зарплат в компании " + company);
-        for (Employee employee : company.getTopSalaryStaff(10)) {
-            System.out.println(employee);
-        }
-        System.out.println("Список самых низких зарплат в компании " + company);
-        for (Employee employee : company.getLowestSalaryStaff(30)) {
-            System.out.println(employee);
-        }
+        System.out.println("3. Список самых высоких и самых низких зарплат в компании");
+        System.out.println(company.getTopSalaryStaff(10));
+        System.out.println(company.getLowestSalaryStaff(30));
 
         // увольнение
         for (int i = 0; i < (COUNT_IOP_MANAGER + COUNT_MANAGER + COUNT_IOP_MANAGER) / 2; i++) {
-            employees.remove(employees.get(i));
+            company.fire(employees.get(i));
         }
+        System.out.println("4. Прошло увольнение 50% сотрудников: " + company);
 
         // вывод
-        System.out.println("Список самых высоких зарплат в компании " + company);
-        for (Employee employee : company.getTopSalaryStaff(10)) {
-            System.out.println(employee);
-        }
-        System.out.println("Список самых низких зарплат в компании " + company);
-        for (Employee employee : company.getLowestSalaryStaff(30)) {
-            System.out.println(employee);
-        }
+        System.out.println("5. Список самых высоких и самых низких зарплат в компании");
+        System.out.println(company.getTopSalaryStaff(10));
+        System.out.println(company.getLowestSalaryStaff(30));
     }
 }

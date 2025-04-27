@@ -1,7 +1,9 @@
 package homeworks.ArrayList;
 
 interface Employee extends Comparable<Employee> {
-    double getMonthSalary();
+    int getMonthSalary();
+
+    int getIncome();
 
     @Override
     default int compareTo(Employee o) {

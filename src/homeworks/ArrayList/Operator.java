@@ -1,11 +1,16 @@
 package homeworks.ArrayList;
 
 public class Operator implements Employee {
-    private final double SALARY = 30_000;
+    private final int SALARY = 30_000;
+    private final int income = 0;
+
+    public int getIncome() {
+        return income;
+    }
 
     // зарплата складывается только из фиксированной части
     @Override
-    public double getMonthSalary() {
+    public int getMonthSalary() {
         return SALARY;
     }
 

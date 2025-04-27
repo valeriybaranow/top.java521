@@ -1,24 +1,19 @@
 package homeworks.ArrayList;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
 
-/*
-    1. Создайте класс компании Company, содержащей сотрудников и реализующей методы:
-    - найм одного сотрудника — hire(Employee employee),
-    - найм списка сотрудников – hireAll(Collection<Employee> employes),
-    - увольнение сотрудника – fire(Employee employee),
-    - получение значения дохода компании – getIncome().
-    Каждый метод НЕ должен иметь модификатор static, это позволит каждому объекту класса Company иметь свой набора сотрудников, свой расчет дохода, увольнение и найм.
-    Аргументы и возвращаемое значение методов выберите на основании логики работы вашего приложения.
- */
 public class Company {
+
+    private final int MIN_EARNED_MONEY = 115_000;
+    private final int MAX_EARNED_MONEY = 140_000;
+
     private final List<Employee> employees = new ArrayList<>();
     // доход компании
     private int income;
-    private String name;
+    private final String name;
 
     public Company(String $name) {
         this.name = $name;
@@ -26,49 +21,69 @@ public class Company {
 
     // Возвращающие список указанной длины (count).
     // Они должны содержать сотрудников, отсортированных по возрастанию заработной платы
-    List<Employee> getTopSalaryStaff(int count) {
-        List<Employee> copy = new ArrayList<>(employees);
-        copy.sort(Comparator.naturalOrder());
-        System.out.println(copy);
-        return copy.subList(0, count);
+    List<Integer> getTopSalaryStaff(int count) {
+        int correctedCount = Math.min(count, employees.size());
+        List<Integer> monthSalaries =  new ArrayList<>(employees.size());
+        for (Employee employee : employees) {
+            monthSalaries.add(employee.getMonthSalary());
+        }
+        monthSalaries.sort(Comparator.reverseOrder());
+        return monthSalaries.subList(0, correctedCount);
     }
 
     // Возвращающие список указанной длины (count).
     // Они должны содержать сотрудников, отсортированных по убыванию заработной платы
-    List<Employee> getLowestSalaryStaff(int count) {
-        List<Employee> copy = new ArrayList<>(employees);
-        copy.sort(Comparator.reverseOrder());
-        return employees.subList(0, count);
+    List<Integer> getLowestSalaryStaff(int count) {
+        int correctedCount = Math.min(count, employees.size());
+        List<Integer> monthSalaries =  new ArrayList<>(employees.size());
+        for (Employee employee : employees) {
+            monthSalaries.add(employee.getMonthSalary());
+        }
+        monthSalaries.sort(Comparator.naturalOrder());
+        return monthSalaries.subList(0, correctedCount);
     }
 
     // найм одного сотрудника
     public void hire(Employee employee) {
         employees.add(employee);
+        income += employee.getIncome();
     }
 
     //  найм списка сотрудников
-    public void hireAll(Collection<Employee> employes) {
-        // TODO: нужно сделать расчет дохода компании
-        this.employees.addAll(employes);
+    public void hireAll(List<Employee> employees) {
+        this.employees.addAll(employees);
+        recalculateIncome(employees);
+    }
+
+    public int getEarnedMoney() {
+        Random random = new Random();
+        return random.nextInt(MAX_EARNED_MONEY - MIN_EARNED_MONEY + 1) + MIN_EARNED_MONEY;
+    }
+
+    public void recalculateIncome(List<Employee> employees) {
+        for(Employee employee : employees) {
+            income += employee.getIncome();
+        }
     }
 
     // увольнение сотрудника
     public void fire(Employee employee) {
+        income -= employee.getIncome();
         this.employees.remove(employee);
     }
 
     // получение значения дохода компании
-    public double getIncome() {
+    public int getIncome() {
         return income;
     }
 
-    public void addIncome(double income) {
+    public void addIncome(int income) {
         this.income += income;
     }
 
     @Override
     public String toString() {
-        return "Компания " + name + " количество сотрудников - " + employees.size() +
-                " доход=" + income;
+        return "Компания " + name + "; количество сотрудников - " + employees.size() +
+                " доход - " + income;
     }
 }
