@@ -13,6 +13,8 @@ public class LiveCircleGame {
         LinkedList<String> players = new LinkedList<>();
         Scanner scanner = new Scanner(System.in);
 
+
+
         // Заполнение списка участников
         System.out.println("Введите имена участников игры (для завершения введите \"конец\"):");
         // TODO: добавлено значение по умолчанию
