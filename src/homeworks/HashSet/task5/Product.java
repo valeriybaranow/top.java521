@@ -1,7 +1,5 @@
 package homeworks.HashSet.task5;
 
-import java.util.Objects;
-
 public class Product implements Comparable<Product> {
     String name;
     double price;
@@ -37,15 +35,13 @@ public class Product implements Comparable<Product> {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Product product = (Product) o;
-        return Objects.equals(name, product.name);
-    }
+    public int compareTo(Product product) {
+        int result = Double.compare(this.price, product.price);
 
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(name);
+        if (result == 0) {
+            result = Integer.compare(this.rating, product.rating);
+        }
+        return result;
     }
 
     @Override
@@ -55,15 +51,5 @@ public class Product implements Comparable<Product> {
                 ", price=" + price +
                 ", rating=" + rating +
                 '}';
-    }
-
-    @Override
-    public int compareTo(Product product) {
-        int result = Double.compare(this.price, product.price);
-
-        if (result == 0) {
-            result = Integer.compare(this.rating, product.rating);
-        }
-        return result;
     }
 }
