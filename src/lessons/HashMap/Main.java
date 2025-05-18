@@ -1,6 +1,5 @@
 package lessons.HashMap;
 
-import homeworks.HashMap.Person;
 
 import java.util.*;
 
@@ -39,11 +38,11 @@ public class Main {
     }
 
     public static void task2() {
-        HashMap<homeworks.HashMap.Person, String> map2 = new HashMap<>();
-        map2.put(new homeworks.HashMap.Person("Farid", "Abdulaey", "888", "asfd@mail.ru"), "tel1");
-        map2.put(new homeworks.HashMap.Person("Farid", "Abdulaey", "888", "asfd@mail.ru"), "tel1");
-        map2.put(new homeworks.HashMap.Person("Farid", "Abdulaey", "888", "asfd@mail.ru"), "tel1");
-        map2.put(new homeworks.HashMap.Person("Farid", "Abdulaey", "888", "asfd@mail.ru"), "tel1");
+        HashMap<Person, String> map2 = new HashMap<>();
+        map2.put(new Person("Farid", "Abdulaey", "888", "asfd@mail.ru"), "tel1");
+        map2.put(new Person("Farid", "Abdulaey", "888", "asfd@mail.ru"), "tel1");
+        map2.put(new Person("Farid", "Abdulaey", "888", "asfd@mail.ru"), "tel1");
+        map2.put(new Person("Farid", "Abdulaey", "888", "asfd@mail.ru"), "tel1");
 
         for (Map.Entry<Person, String> entry : map2.entrySet()) {
             System.out.println(entry.getKey() + " " + entry.getValue());
