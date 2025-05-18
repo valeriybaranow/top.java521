@@ -26,7 +26,11 @@ public class Main {
         int cursor1 = 0;
         int cursor2 = 0;
         for (int i = 0; i < len; i++) {
-            result[i] = cursor1 >= arr1.length ? arr2[cursor2++] : cursor2 >= arr2.length ? arr1[cursor1++] : arr2[cursor2] <= arr1[cursor1] ? arr2[cursor2++] : arr1[cursor1++];
+            result[i] = cursor1 >= arr1.length
+                            ? arr2[cursor2++]
+                            : cursor2 >= arr2.length
+                                    ? arr1[cursor1++]
+                                    : arr2[cursor2] <= arr1[cursor1] ? arr2[cursor2++] : arr1[cursor1++];
         }
         return result;
     }
