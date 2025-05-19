@@ -79,12 +79,16 @@ public class Robot {
     }
 
     private static void turn(Direction direction, Robot robot) {
+        TurnOptions turnOptions = getTurnOptions(direction, robot);
+        System.out.println(turnOptions);
         while (robot.direction != direction) {
-            if (getTurnOptions(direction, robot) == TurnOptions.RIGHT) {
+            if (turnOptions == TurnOptions.RIGHT) {
                 robot.turnRight();
-            } else if (getTurnOptions(direction, robot) == TurnOptions.LEFT) {
+            }
+            if (turnOptions == TurnOptions.LEFT) {
                 robot.turnLeft();
             }
+            robot.showLocation();
         }
     }
 
@@ -120,10 +124,8 @@ public class Robot {
         robot.showLocation();
         if(diffX < 0) {
             turn(Direction.LEFT, robot);
-            robot.showLocation();
         } else if(diffX > 0) {
             turn(Direction.RIGHT, robot);
-            robot.showLocation();
         }
         for(int i = 0; i < Math.abs(diffX); i++) {
             robot.stepForward();
@@ -131,10 +133,8 @@ public class Robot {
         }
         if(diffY < 0) {
             turn(Direction.DOWN, robot);
-            robot.showLocation();
         } else if(diffY > 0) {
             turn(Direction.UP, robot);
-            robot.showLocation();
         }
         for(int i = 0; i <  Math.abs(diffY); i++) {
             robot.stepForward();
@@ -157,7 +157,7 @@ public class Robot {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        System.out.println(this);
+//        System.out.println(this);
         for(int i = 9; i >= -2; i--) {
             for(int j = -1; j < 10; j++) {
                 if(i == -2) {
@@ -192,7 +192,6 @@ public class Robot {
         }
         System.out.print("\033[H\033[2J");
         System.out.flush();
-//        clearConsole();
     }
 
     @Override
