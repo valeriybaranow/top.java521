@@ -116,30 +116,83 @@ public class Robot {
     public static void move(int toX, int toY, Robot robot) {
         int diffX = toX - robot.getX();
         int diffY = toY - robot.getY();
-        System.out.println(diffX + " " + diffY);
 
+        robot.showLocation();
         if(diffX < 0) {
-            turn(Direction.DOWN, robot);
-            System.out.println(robot);
+            turn(Direction.LEFT, robot);
+            robot.showLocation();
         } else if(diffX > 0) {
-            turn(Direction.UP, robot);
-            System.out.println(robot);
+            turn(Direction.RIGHT, robot);
+            robot.showLocation();
         }
         for(int i = 0; i < Math.abs(diffX); i++) {
             robot.stepForward();
-            System.out.println(robot);
+            robot.showLocation();
         }
         if(diffY < 0) {
-            turn(Direction.LEFT, robot);
-            System.out.println(robot);
+            turn(Direction.DOWN, robot);
+            robot.showLocation();
         } else if(diffY > 0) {
-            turn(Direction.RIGHT, robot);
-            System.out.println(robot);
+            turn(Direction.UP, robot);
+            robot.showLocation();
         }
-        for(int i = 0; i <  Math.abs(diffX); i++) {
+        for(int i = 0; i <  Math.abs(diffY); i++) {
             robot.stepForward();
-            System.out.println(robot);
+            robot.showLocation();
         }
+    }
+
+    private char getIcon() {
+        return switch (direction) {
+            case UP -> '⇈';
+            case RIGHT -> '⇉';
+            case DOWN -> '⇊';
+            case LEFT -> '⇇';
+        };
+    }
+
+    public void showLocation() {
+        try {
+            Thread.sleep( 1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println(this);
+        for(int i = 9; i >= -2; i--) {
+            for(int j = -1; j < 10; j++) {
+                if(i == -2) {
+                    if (j == -1) {
+                        System.out.print("    ");
+                    } else {
+                        System.out.print(j + " ");
+                    }
+                } else if (i == -1) {
+                    if (j == -1) {
+                        System.out.print("    ");
+                    } else {
+                        System.out.print("--");
+                    }
+                }
+                else {
+                    if (j == -1) {
+                        System.out.print(i + " | ");
+                    } else {
+                        if (x == j && y == i) {
+                            char icon = getIcon();
+                            System.out.print(icon + " ");
+                        } else {
+                            System.out.print("  ");
+                        }
+                    }
+                }
+                if (j == 9) {
+                    System.out.println();
+                }
+            }
+        }
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+//        clearConsole();
     }
 
     @Override
