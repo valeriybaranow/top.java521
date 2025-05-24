@@ -84,11 +84,12 @@ public class Robot {
         while (robot.direction != direction) {
             if (turnOptions == TurnOptions.RIGHT) {
                 robot.turnRight();
+                robot.showLocation();
             }
             if (turnOptions == TurnOptions.LEFT) {
                 robot.turnLeft();
+                robot.showLocation();
             }
-            robot.showLocation();
         }
     }
 
@@ -121,7 +122,6 @@ public class Robot {
         int diffX = toX - robot.getX();
         int diffY = toY - robot.getY();
 
-        robot.showLocation();
         if(diffX < 0) {
             turn(Direction.LEFT, robot);
         } else if(diffX > 0) {

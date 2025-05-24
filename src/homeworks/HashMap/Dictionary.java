@@ -12,20 +12,6 @@ public class Dictionary {
         dictionary.put("brother", List.of("брат"));
         dictionary.put("mather", List.of("мама"));
         dictionary.put("father", List.of("отец"));
-
-//        String w = "пес";
-//        for (Map.Entry<String, List<String>> entryDictionary : dictionary.entrySet()) {
-//            List<String> list = new ArrayList<>();
-//            for(String str:  entryDictionary.getValue()) {
-//                if (str.contains(w)) {
-//                    list.add("test");
-//                } else {
-//                    list.add(str);
-//                }
-//            }
-//            dictionary.replace(entryDictionary.getKey(), list);
-//        }
-//        System.out.println(dictionary);
     }
 
     public void findWorld() {
@@ -107,7 +93,7 @@ public class Dictionary {
             String translationReplace = null;
             for (Map.Entry<String, List<String>> entryDictionary : dictionary.entrySet()) {
                 if (entryDictionary.getKey().contains(word)) {
-                    // TODO: можно удалитьт и добавить
+                    // TODO: можно удалить и добавить - но не получилось
                     List<String> translationList = new ArrayList<>();
                     for (String str : entryDictionary.getValue()) {
                         if (str.contains(translation)) {
@@ -138,7 +124,7 @@ public class Dictionary {
         String word = sc.nextLine().toLowerCase();
         if (dictionary.containsKey(word)) {
             dictionary.remove(word);
-            System.out.println("Введите слово на которое нужно изменить");
+            System.out.println("Слово " + word + " удалено из словаря со всеми переводами");
         } else {
             System.out.println("Введенное слово не найдено");
         }
@@ -147,11 +133,20 @@ public class Dictionary {
     public void deleteTranslate() {
         System.out.println("Введите перевод слова, которое нужно удалить. Внимание! будем удалено само слово со всеми вариантами перевода:");
         String word = sc.nextLine().toLowerCase();
-        if (dictionary.containsKey(word)) {
-            dictionary.remove(word);
-            System.out.println("Введите слово на которое нужно изменить");
+        String keyForDelete = null;
+        for (Map.Entry<String, List<String>> entryDictionary : dictionary.entrySet()) {
+            for (String str : entryDictionary.getValue()) {
+                if (str.contains(word)) {
+                    keyForDelete = entryDictionary.getKey();
+                    break;
+                }
+            }
+        }
+        if (keyForDelete == null) {
+            System.out.println("Перевод слова не найден");
         } else {
-            System.out.println("Введенное слово не найдено");
+            dictionary.remove(keyForDelete);
+            System.out.println("Слово " + keyForDelete + " удалено из словаря со всеми переводами");
         }
     }
 

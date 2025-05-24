@@ -4,17 +4,17 @@ import java.util.Scanner;
 
 /*
     Реализовать CRUD operation
-    C-reate    +
-    R-ead      +
-    U-pdate znaceniya
-    U-pdate kluca
-    D-elete po klucu
-    D-elete po znaceniyu
+    Create    +
+    Read      +
+    Update значения
+    Update ключа
+    Delete по ключу
+    Delete по значение
 
-    1)Реализовать удаление по ключу
-    2)Реализовать удаление по значению
-    3)Реализовать редактирование  значение
-    4)Реализовать редактирование  ключа
+    1) Реализовать удаление по ключу
+    2) Реализовать удаление по значению
+    3) Реализовать редактирование  значение
+    4) Реализовать редактирование  ключа
  */
 public class Main {
     public static void main() {
@@ -39,7 +39,7 @@ public class Main {
                     
                     7 - Удалить слово из словаря\
                     
-                    8 - Удалить вариант перевода слова\
+                    8 - Удалить слова с переводами по переводу\
                     
                     9 - Выход""");
 
@@ -73,7 +73,6 @@ public class Main {
                 case 9:
                     System.out.println("Пока!");
             }
-//            clearConsole();
         } while (select != 9);
     }
 }
