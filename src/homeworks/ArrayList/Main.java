@@ -13,10 +13,10 @@ import java.util.Collections;
     Аргументы и возвращаемое значение методов выберите на основании логики работы вашего приложения.
  */
 public class Main {
-    public static void main(String[] args) {
-        final int COUNT_OPERATOR = 5;
-        final int COUNT_MANAGER = 5;
-        final int COUNT_IOP_MANAGER = 2;
+    public static void main() {
+        final int COUNT_OPERATOR = 180;
+        final int COUNT_MANAGER = 80;
+        final int COUNT_IOP_MANAGER = 10;
 
         // подготовка
         Company company = new Company("Академия ТОП");
@@ -43,7 +43,7 @@ public class Main {
         System.out.println(company.getLowestSalaryStaff(30));
 
         // увольнение
-        for (int i = 0; i < (COUNT_IOP_MANAGER + COUNT_MANAGER + COUNT_IOP_MANAGER) / 2; i++) {
+        for (int i = 0; i < (COUNT_OPERATOR + COUNT_MANAGER + COUNT_IOP_MANAGER) / 2; i++) {
             company.fire(employees.get(i));
         }
         System.out.println("4. Прошло увольнение 50% сотрудников: " + company);

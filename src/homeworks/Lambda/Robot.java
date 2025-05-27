@@ -80,7 +80,7 @@ public class Robot {
 
     private static void turn(Direction direction, Robot robot) {
         TurnOptions turnOptions = getTurnOptions(direction, robot);
-        System.out.println(turnOptions);
+//        System.out.println(turnOptions);
         while (robot.direction != direction) {
             if (turnOptions == TurnOptions.RIGHT) {
                 robot.turnRight();
