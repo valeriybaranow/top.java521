@@ -1,0 +1,68 @@
+Реализовать CRUD operation
+C-reate    +
+R-ead      +
+U-pdate znaceniya
+U-pdate kluca
+D-elete po klucu
+D-elete po znaceniyu
+
+1)Реализовать удаление по ключу
+2)Реализовать удаление по значению
+3)Реализовать редактирование  значение
+4)Реализовать редактирование  ключа
+
+
+
+HashMap<String, String> dictionary = new HashMap<>();
+//        dictionary.put("dog", "sobaka");
+//        dictionary.put("brother", "brat");
+//        dictionary.put("mother", "mama");
+//        dictionary.put("father", "otec");
+//        dictionary.put("home", "dom");
+//
+//
+//        do {
+//            System.out.print("Vvedite slovo : ");
+//            Scanner scanner = new Scanner(System.in);
+//            String word = scanner.nextLine();
+//            word = word.toLowerCase();
+//
+//            if (dictionary.containsKey(word)) {
+//                System.out.println(word + " (en) => " + dictionary.get(word) + " (ru)");
+//            } else if (dictionary.containsValue(word)) {
+//                for (Map.Entry<String, String> entry : dictionary.entrySet()) {
+//                    if (entry.getValue().equals(word)) {
+//                        System.out.println(entry.getKey() + " (en) => " + entry.getValue() + " (ru)");
+//                        break;
+//                    }
+//                }
+//            } else {
+//                System.out.print("Dannoe slovo otsutsvuet,Ne xotite li vi eqo dobavit\n1 - Da\n2 - Net\n");
+//                scanner = new Scanner(System.in);
+//                int select  = scanner.nextInt();
+//
+//                if (select==1){
+//                    System.out.print("Vvedite perevod dannoqo slova : ");
+//                    scanner = new Scanner(System.in);
+//                    String  newWord  = scanner.nextLine();
+//
+//                    newWord = newWord.toLowerCase();
+//
+//                    dictionary.put(newWord,word);
+//                }
+//            }
+//
+//
+//        } while (true);
+
+
+
+
+
+//**
+ HashMap<String, List<String>> dictionary = new HashMap<>();
+ dictionary.put("dog",List.of("sobaka"));
+ dictionary.put("brother", List.of("brat"));
+ dictionary.put("mother", List.of("mama","mat"));
+ dictionary.put("father", List.of("otec","papa"));
+ dictionary.put("home", List.of("dom"));
