@@ -1,10 +1,11 @@
 package homeworks.files;
 
-public class Functions {
+public class CommonUtils {
 
     public static Mode mode;
 
-    private Functions() {
+    private CommonUtils() {
+        throw new UnsupportedOperationException("Это утилитарный класс, экземпляры создавать нельзя");
     }
 
     public static void checkMode(String[] args) {

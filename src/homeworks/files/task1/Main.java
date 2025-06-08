@@ -1,7 +1,7 @@
 package homeworks.files.task1;
 
 
-import homeworks.files.Functions;
+import homeworks.files.CommonUtils;
 import homeworks.files.Mode;
 import homeworks.files.TextFileProcessor;
 
@@ -21,14 +21,14 @@ import java.util.Scanner;
  */
 public class Main {
     public static void main(String[] args) {
-        Functions.checkMode(args);
+        CommonUtils.checkMode(args);
         Scanner scanner = new Scanner(System.in, "UTF-8");
 
         Boolean isFinished = false;
         while (!isFinished) {
             // data/statistic.txt
             String filePath = "data" + File.separator + "statistic.txt";
-            if (Mode.DEFAULT == Functions.mode) {
+            if (Mode.DEFAULT == CommonUtils.mode) {
                 System.out.println("Введите путь к файлу:");
                 filePath = scanner.nextLine();
             }

@@ -4,6 +4,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 public class TextFileProcessor {
     private final String text;
@@ -62,6 +63,34 @@ public class TextFileProcessor {
         } catch (IOException e) {
             throw new IOException(e.getMessage());
         }
+        return count;
+    }
+
+    public static int copyFile(List<String> filePath1) throws IOException {
+        int count = 0;
+        // конструкция try-with-resources (try со скобками)
+//        try {
+//            BufferedReader reader = new BufferedReader(new FileReader(filePath1));
+//            StringBuilder content = new StringBuilder();
+//            String line;
+//            while ((line = reader.readLine()) != null) {
+//                if (line.toLowerCase().contains(searchWord.toLowerCase())) {
+//                    count++;
+//                }
+//                // (?i) - игнорирование регистра
+//                // Замена только целых слов с границами (\b)
+//                content.append(line.replaceAll("(?iu)" + searchWord, replacementWord)).append("\n");
+//            }
+//            reader.close();
+//
+//            // перезапись файла
+//            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
+//            writer.write(content.toString());
+//            writer.close();
+//
+//        } catch (IOException e) {
+//            throw new IOException(e.getMessage());
+//        }
         return count;
     }
 
