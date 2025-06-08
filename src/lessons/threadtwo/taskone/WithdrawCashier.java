@@ -8,7 +8,7 @@ public class WithdrawCashier extends Cashier {
         super(name, sums, cashRegister);
     }
 
-    public void executeOperations() {
+    public void executeOperations() throws InterruptedException {
         for (int i = 0; i < sums.size(); i++) {
             cashRegister.withdraw(this, sums.get(i));
         }

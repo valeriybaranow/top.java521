@@ -10,11 +10,11 @@ public class Logger {
     }
 
     public static void overflowWait() {
-        System.out.printf("недостаточно средств, ожидаю...\n");
+        System.out.printf(" касса переполнена, ожидаю...\n");
     }
 
     public static void deficitWait() {
-        System.out.printf(" касса переполнена, ожидаю...\n");
+        System.out.printf("недостаточно средств, ожидаю...\n");
     }
 
     public static void balanceStatus(CashRegister cashRegister) {

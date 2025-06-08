@@ -8,7 +8,7 @@ public class DepositCashier extends Cashier {
         super(name, sums, cashRegister);
     }
 
-    public void executeOperations() {
+    public void executeOperations() throws InterruptedException {
         for (int i = 0; i < sums.size(); i++) {
             cashRegister.deposit(this, sums.get(i));
         }

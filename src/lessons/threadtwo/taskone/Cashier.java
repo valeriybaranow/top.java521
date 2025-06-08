@@ -3,21 +3,21 @@ package lessons.threadtwo.taskone;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Cashier {
-    private final String name;
+public abstract class Cashier extends Thread {
+    private final String cashierName;
     protected List<Integer> sums = new ArrayList<>();
     protected CashRegister cashRegister;
 
     public Cashier(String name, List<Integer> sums, CashRegister cashRegister) {
-        this.name = name;
+        this.cashierName = name;
         this.sums = sums;
         this.cashRegister = cashRegister;
     }
 
-    public abstract void executeOperations();
+    public abstract void executeOperations() throws InterruptedException;
 
-    public String getName() {
-        return name;
+    public String getCashierName() {
+        return cashierName;
     }
 
     public List<Integer> getSums() {
@@ -25,7 +25,16 @@ public abstract class Cashier {
     }
 
     @Override
+    public void run() {
+        try {
+            executeOperations();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     public String toString() {
-        return this.getName();
+        return this.getCashierName();
     }
 }
