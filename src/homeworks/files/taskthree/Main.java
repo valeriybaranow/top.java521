@@ -40,7 +40,6 @@ public class Main {
                     filePaths.add("data" + File.separator + "file2.txt");
                     filePaths.add("data" + File.separator + "file3.txt");
                     filePaths.add("data" + File.separator + "file4.txt");
-                    filePaths.add("data" + File.separator + "file1.txt");
 
                     if (Mode.DEFAULT == CommonUtils.mode) {
                         System.out.println("Введите путь четырем файлам:");
@@ -56,11 +55,14 @@ public class Main {
                     }
 
                     try {
-                        int count = TextFileProcessor.copyFile(filePaths);
-//                        String formatted = String.format("В файле %s выполнено %d %s%n", filePath1, count, count == 1 ? "замена" : (count >= 2 && count <= 4) ? "замены" : "замен");
-//                        ConsoleHelper.printMessage(formatted);
+                        TextFileProcessor.copyFile(filePaths);
+                        String formatted = String.format("Файл %s дописан файлами %s\n",
+                                filePaths.get(filePaths.size() - 1),
+                                filePaths.stream().limit(filePaths.size() - 1).toString()
+                        );
+                        ConsoleHelper.printMessage(formatted);
                     } catch (IOException e) {
-                        ConsoleHelper.printError("Ошибка чтения файла: " + e.getMessage());
+                        ConsoleHelper.printError("Ошибка копирования файлов: " + e.getMessage());
                     }
                 }
                 case 1 -> ConsoleHelper.printError("Функция временно недоступна.");
