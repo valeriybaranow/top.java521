@@ -1,8 +1,9 @@
-package homeworks.Files.task1;
+package homeworks.files.task1;
 
 
-import homeworks.Files.Functions;
-import homeworks.Files.Mode;
+import homeworks.files.Functions;
+import homeworks.files.Mode;
+import homeworks.files.TextFileProcessor;
 
 import java.io.File;
 import java.io.IOException;

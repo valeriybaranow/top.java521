@@ -1,8 +1,6 @@
-package homeworks.Files.task1;
+package homeworks.files;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -36,22 +34,35 @@ public class TextFileProcessor {
     }
 
 
-    public static int replaceWord(String filePath, final String searchWord, final String replacementWord) {
-        int lineNumber = 0;
-        int contSearch = 0;
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+    public static int replaceWord(String filePath, final String searchWord, final String replacementWord) throws IOException {
+        int count = 0;
+        // конструкция try-with-resources (try со скобками)
+        try {
+            String text = "Пример ПРИМЕР пример ПрИмЕр";
+            String newText = text.replaceAll("(?iu)пример", "замена");
+            System.out.println(newText);
+            BufferedReader reader = new BufferedReader(new FileReader(filePath));
+            StringBuilder content = new StringBuilder();
             String line;
-            while ((line = br.readLine()) != null) {
-                lineNumber++;
-                if (line.contains(searchWord)) {
-                    contSearch++;
-                    System.out.println("Слово найдено в строке " + lineNumber + ": " + line);
+            while ((line = reader.readLine()) != null) {
+                if (line.toLowerCase().contains(searchWord.toLowerCase())) {
+                    count++;
                 }
+                // (?i) - игнорирование регистра
+                // Замена только целых слов с границами (\b)
+                content.append(line.replaceAll("(?iu)" + searchWord, replacementWord)).append("\n");
             }
+            reader.close();
+
+            // перезапись файла
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
+            writer.write(content.toString());
+            writer.close();
+
         } catch (IOException e) {
-            System.err.println("Ошибка чтения файла: " + e.getMessage());
+            throw new IOException(e.getMessage());
         }
-        return contSearch;
+        return count;
     }
 
     private TextFileProcessor calculateWithStream() {

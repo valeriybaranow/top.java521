@@ -1,4 +1,4 @@
-package homeworks.Files;
+package homeworks.files;
 
 public class Functions {
 
