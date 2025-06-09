@@ -55,10 +55,11 @@ public class Main {
                     }
 
                     try {
-                        TextFileProcessor.copyFile(filePaths);
-                        String formatted = String.format("Файл %s дописан файлами %s\n",
+                        int bytes = TextFileProcessor.copyFile(filePaths);
+                        String formatted = String.format("Файл %s дописан файлами %s\nКоличество перенесенных байт %d",
                                 filePaths.get(filePaths.size() - 1),
-                                filePaths.stream().limit(filePaths.size() - 1).toString()
+                                filePaths.stream().limit(filePaths.size() - 1).toString(),
+                                bytes
                         );
                         ConsoleHelper.printMessage(formatted);
                     } catch (IOException e) {

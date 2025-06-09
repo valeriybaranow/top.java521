@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class TextFileProcessor {
     private final String text;
@@ -34,14 +35,49 @@ public class TextFileProcessor {
         return true;
     }
 
+    public static int deleteWord(String filePath, final List<String> words) throws IOException {
+        int count = 0;
+        // конструкция try-with-resources (try со скобками)
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(filePath));
+            StringBuilder content = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                for (String word : words) {
+                    if (line.toLowerCase().contains(word.toLowerCase())) {
+                        count++;
+                    }
+                    /*
+                        Флаги регулярного выражения:
+                        - (?iu) - эквивалентно Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE
+                        - i - case insensitive (игнорирование регистра)
+                        - u - Unicode case (корректная работа с не-ASCII символами)
+                        Границы слова:
+                        - \\b - обозначает границу слова (позволяет находить целые слова)
+                        Экранирование спецсимволов:
+                        - Pattern.quote() - экранирует специальные символы в word
+                    */
+                    String regex = "(?iu)\\b" + Pattern.quote(word) + "\\b";
+                    content.append(line.replaceAll(regex, word)).append("\n");
+                }
+            }
+            reader.close();
+
+            // перезапись файла
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
+            writer.write(content.toString());
+            writer.close();
+
+        } catch (IOException e) {
+            throw new IOException(e.getMessage());
+        }
+        return count;
+    }
 
     public static int replaceWord(String filePath, final String searchWord, final String replacementWord) throws IOException {
         int count = 0;
         // конструкция try-with-resources (try со скобками)
         try {
-            String text = "Пример ПРИМЕР пример ПрИмЕр";
-            String newText = text.replaceAll("(?iu)пример", "замена");
-            System.out.println(newText);
             BufferedReader reader = new BufferedReader(new FileReader(filePath));
             StringBuilder content = new StringBuilder();
             String line;
@@ -66,23 +102,25 @@ public class TextFileProcessor {
         return count;
     }
 
-    public static void copyFile(List<String> filePaths) throws IOException {
+    public static int copyFile(List<String> filePaths) throws IOException {
         StringBuilder content = new StringBuilder();
+        int butes = 0;
         int i = 1;
         for (final String filePath : filePaths) {
             Path path = Paths.get(String.valueOf(filePath));
             if (i < filePaths.size()) {
-
-                String fileText = Files.readAllLines(path).toString();
-                content.append(fileText);
+                String fileText = Files.readString(path).toString();
+                content.append(fileText).append("\n");
+                butes += fileText.getBytes().length;
             } else {
                 // перезапись файла
-                BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
-                writer.append(content.toString());
+                BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true));
+                writer.write(content.toString());
                 writer.close();
             }
             ++i;
         }
+        return butes;
     }
 
     private TextFileProcessor calculateWithStream() {
