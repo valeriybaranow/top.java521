@@ -10,7 +10,7 @@ public class Main {
         CashRegister cashRegister = new CashRegister();
         List<Cashier> cashiers = new ArrayList<Cashier>();
 
-        List<Integer> sums = Arrays.asList(1, 20, 30, 40, 50, 60);
+        List<Integer> sums = Arrays.asList(10, 20, 30, 40, 50, 60);
         cashiers.add(new WithdrawCashier("Кассир 1", sums, cashRegister));
         cashiers.add(new WithdrawCashier("Кассир 2", sums, cashRegister));
         cashiers.add(new WithdrawCashier("Кассир 3", sums, cashRegister));
@@ -18,9 +18,9 @@ public class Main {
         cashiers.add(new DepositCashier("Кассир 5", sums, cashRegister));
 
         System.out.println("Start");
-        cashiers.stream().forEach(cashier -> {
+        cashiers.forEach(cashier -> {
             cashier.start();
-            System.out.println("Thread" + cashier.getName());
+            System.out.println("Thread " + cashier.getName());
             try {
                 cashier.join();
             } catch (InterruptedException e) {

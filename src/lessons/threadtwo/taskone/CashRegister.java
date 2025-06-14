@@ -7,49 +7,31 @@ public class CashRegister {
     private static final int MAX_BALANCE = 1000;
     private static final int MIN_BALANCE = 0;
 
-    private int balance = 0;
+    protected final ReentrantLock lock = new ReentrantLock();
     private int contOperations = 0;
+    protected final Condition overflow = lock.newCondition();
+    protected final Condition deficit = lock.newCondition();
+    private int balance = 20;
 
-    private final ReentrantLock lock = new ReentrantLock();
-    private final Condition overflow = lock.newCondition();
-    private final Condition deficit = lock.newCondition();
-
-    public void deposit(Cashier cashier, int amount) throws InterruptedException {
-        lock.lock();
-        int newBalance = balance + amount;
-        try {
-            while (newBalance > MAX_BALANCE) {
-                Logger.deposit(cashier, amount, getBalance());
-                Logger.overflowWait();
-                overflow.await(); // Освобождает lock и ждет
-            }
-            // Условие выполнено, продолжаем работу
+    public void deposit(Cashier cashier, int amount) throws IllegalStateException {
+        if (balance + amount > MAX_BALANCE) {
+            Logger.overflowWait();
+            throw new IllegalStateException("Превышение максимального баланса");
+        } else {
+            balance += amount;
             contOperations++;
-            this.balance = newBalance;
             Logger.deposit(cashier, amount, getBalance());
-            deficit.signalAll();
-        } finally {
-            lock.unlock();
         }
     }
 
     public void withdraw(Cashier cashier, int amount) throws InterruptedException {
-        lock.lock();
-        int newBalance = balance - amount;
-        try {
-            while (newBalance < MIN_BALANCE) {
-                Logger.withdraw(cashier, amount, getBalance());
+        if (balance - amount < MIN_BALANCE) {
                 Logger.deficitWait();
-                deficit.await(); // Освобождает lock и ждет
-                System.out.println("Поток пробудился");
-            }
-            // Условие выполнено, продолжаем работу
+            throw new IllegalStateException("Дефицит баланса");
+        } else {
             contOperations++;
-            this.balance = newBalance;
+            balance -= amount;
             Logger.withdraw(cashier, amount, getBalance());
-            overflow.signalAll();
-        } finally {
-            lock.unlock();
         }
     }
 
