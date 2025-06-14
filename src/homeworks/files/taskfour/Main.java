@@ -7,9 +7,7 @@ import homeworks.files.TextFileProcessor;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 /*
     Задание 4:
@@ -23,12 +21,12 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         String[] menuItems = {
-                "Введите путь к файлам",
+                "Замена списка запрещенных слов",
                 "Что то еще",
                 "Выход"
         };
 
-        ConsoleHelper.showMenu("Замена слова в файле", menuItems, choice -> {
+        ConsoleHelper.showMenu("Мощный инструмент для работы с текстом", menuItems, choice -> {
             switch (choice) {
                 case 0 -> {
                     CommonUtils.checkMode(args);
@@ -38,8 +36,6 @@ public class Main {
                     // data/statistic.txt
                     // Файл
                     String filePath = "data/statistic.txt";
-
-
                     words.add("word1");
                     words.add("word2");
                     words.add("word3");
@@ -54,15 +50,28 @@ public class Main {
                         }
 
                         System.out.println("Введите запрещенные слова:");
-                        for (int i = 0; i < 3; i++) {
+                        for (int i = 0; i < 4; i++) {
                             words.add(scanner.nextLine().trim());
                         }
                     }
 
                     try {
-                        int count = TextFileProcessor.replaceWord(filePath, words);
-                        String formatted = String.format("В файле %s выполнено %d %s%n", filePath, count, count == 1 ? "замена" : (count >= 2 && count <= 4) ? "замены" : "замен");
-                        ConsoleHelper.printMessage(formatted);
+                        Map<String, List<TextFileProcessor.StatisticDto>> result = TextFileProcessor.deleteWords(filePath, words);
+                        StringJoiner resultText = new StringJoiner("\n");
+                        resultText.add("Удаление слов из файла " + filePath);
+                        int[] counter = {0};
+                        result.forEach((word, value) -> {
+                            StringJoiner lines = new StringJoiner(", ");
+                            value.forEach(statisticDto -> {
+                                lines.add(" встречается в строке " + statisticDto.line() + " " + statisticDto.count() + " " + CommonUtils.pluralRu((int) statisticDto.count(),
+                                        "раз", "раза", "раз"));
+                                counter[0] += statisticDto.count();
+                            });
+                            resultText.add("Слово " + word + lines);
+                        });
+                        resultText.add("Всего удалено " + counter[0] + " " + CommonUtils.pluralRu(counter[0],
+                                "слово", "слов", "слов"));
+                        ConsoleHelper.printMessage(resultText.toString());
                     } catch (IOException e) {
                         ConsoleHelper.printError("Ошибка чтения файла: " + e.getMessage());
                     }

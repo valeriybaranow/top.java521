@@ -4,7 +4,10 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 public class TextFileProcessor {
@@ -21,6 +24,60 @@ public class TextFileProcessor {
         calculateWithStream();
     }
 
+    public static Map<String, List<StatisticDto>> deleteWords(String filePath, final List<String> words) throws IOException {
+
+        Map<String, List<StatisticDto>> result = new LinkedHashMap<>();
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(filePath));
+            StringBuilder content = new StringBuilder();
+            String line;
+            long numline = 1;
+            while ((line = reader.readLine()) != null) {
+                for (String word : words) {
+                    long countInLine =
+                            Pattern.compile("\\b" + word + "\\b", Pattern.CASE_INSENSITIVE).matcher(line).results().count();
+                    if (countInLine > 0) {
+                        /*
+                            Флаги регулярного выражения:
+                            - (?iu) - эквивалентно Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE
+                            - i - case insensitive (игнорирование регистра)
+                            - u - Unicode case (корректная работа с не-ASCII символами)
+                          n  Границы слова:
+                            - \\b - обозначает границу слова (позволяет находить целые слова)
+                            Экранирование спецсимволов:
+                            - Pattern.quote() - экранирует специальные символы в word
+                        */
+                        String regex = "(?iu)\\b" + Pattern.quote(word) + "\\b";
+                        line.replaceAll(regex, word);
+                        // Проверяем, есть ли уже такой ключ
+                        StatisticDto statisticDto = new StatisticDto(numline, countInLine);
+                        if (result.containsKey(word)) {
+                            // Если есть - добавляем в существующий список
+                            result.get(word).add(statisticDto);
+                        } else {
+                            // Если нет - создаем новый список
+                            List<StatisticDto> newList = new ArrayList<>();
+                            newList.add(statisticDto);
+                            result.put(word, newList);
+                        }
+                    }
+                }
+                ++numline;
+                content.append(line).append("\n");
+            }
+            reader.close();
+
+            // перезапись файла
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
+            writer.write(content.toString());
+            writer.close();
+
+        } catch (IOException e) {
+            throw new IOException(e.getMessage());
+        }
+        return result;
+    }
+
     public static TextFileProcessor createStatistic(String text) {
         return new TextFileProcessor(text);
     }
@@ -35,46 +92,7 @@ public class TextFileProcessor {
         return true;
     }
 
-    public static int deleteWord(String filePath, final List<String> words) throws IOException {
-        int count = 0;
-        // конструкция try-with-resources (try со скобками)
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(filePath));
-            StringBuilder content = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                for (String word : words) {
-                    if (line.toLowerCase().contains(word.toLowerCase())) {
-                        count++;
-                    }
-                    /*
-                        Флаги регулярного выражения:
-                        - (?iu) - эквивалентно Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE
-                        - i - case insensitive (игнорирование регистра)
-                        - u - Unicode case (корректная работа с не-ASCII символами)
-                        Границы слова:
-                        - \\b - обозначает границу слова (позволяет находить целые слова)
-                        Экранирование спецсимволов:
-                        - Pattern.quote() - экранирует специальные символы в word
-                    */
-                    String regex = "(?iu)\\b" + Pattern.quote(word) + "\\b";
-                    content.append(line.replaceAll(regex, word)).append("\n");
-                }
-            }
-            reader.close();
-
-            // перезапись файла
-            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
-            writer.write(content.toString());
-            writer.close();
-
-        } catch (IOException e) {
-            throw new IOException(e.getMessage());
-        }
-        return count;
-    }
-
-    public static int replaceWord(String filePath, final String searchWord, final String replacementWord) throws IOException {
+    public static int replaceWords(String filePath, final String searchWord, final String replacementWord) throws IOException {
         int count = 0;
         // конструкция try-with-resources (try со скобками)
         try {
@@ -100,6 +118,9 @@ public class TextFileProcessor {
             throw new IOException(e.getMessage());
         }
         return count;
+    }
+
+    public record StatisticDto(long line, long count) {
     }
 
     public static int copyFile(List<String> filePaths) throws IOException {

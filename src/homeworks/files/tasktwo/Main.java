@@ -44,7 +44,7 @@ public class Main {
                     String replacementWord = scanner.nextLine();
 
                     try {
-                        int count = TextFileProcessor.replaceWord(filePath, searchWord, replacementWord);
+                        int count = TextFileProcessor.replaceWords(filePath, searchWord, replacementWord);
                         String formatted = String.format("В файле %s выполнено %d %s%n", filePath, count, count == 1 ? "замена" : (count >= 2 && count <= 4) ? "замены" : "замен");
                         ConsoleHelper.printMessage(formatted);
                     } catch (IOException e) {

@@ -1,36 +1,25 @@
-package homeworks.files.five;
+package homeworks.files.taskfive;
 
 import java.util.Objects;
 
-public class PhoneNumber {
-    private final String number;
-    private final PhoneType type;
-
+public record PhoneNumber(String number, homeworks.files.taskfive.PhoneNumber.PhoneType type) {
     public PhoneNumber(String number, PhoneType type) {
         this.number = validate(number);
         this.type = type;
     }
 
-    private String validate(String number) {
+    private String validate(String number) throws IllegalArgumentException {
         if (number == null || number.isEmpty()) {
             throw new IllegalArgumentException("Номер телефона не может быть пустым");
         }
 
         String cleanedNumber = number.replaceAll("[^0-9]", "");
 
-        if (cleanedNumber.length() > 6) {
+        if (cleanedNumber.length() < 6) {
             throw new IllegalArgumentException("Номер телефона должен быть не менее 6-ти символов");
         }
 
         return cleanedNumber;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public PhoneType getType() {
-        return type;
     }
 
     @Override
@@ -47,7 +36,7 @@ public class PhoneNumber {
 
     @Override
     public String toString() {
-        return type.name() + ": " + getNumber();
+        return type.name() + ": " + number();
     }
 
     public enum PhoneType {
