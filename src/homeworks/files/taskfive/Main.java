@@ -3,6 +3,7 @@ package homeworks.files.taskfive;
 import homeworks.files.CommonUtils;
 import homeworks.files.ConsoleHelper;
 import homeworks.files.Mode;
+import homeworks.files.TextFileProcessor;
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -47,40 +48,59 @@ public class Main {
                     String name = "Валерий";
                     String surname = "Баранов";
                     String nickname = "valeriybaranow";
-                    String email = "valeriybaranow@gmail.com.";
+                    String email = "valeriybaranow@gmail.com.asd";
+
+                    if (Mode.DEFAULT == CommonUtils.mode) {
+                        System.out.println("Введите имя:");
+                        name = scanner.nextLine();
+
+                        System.out.println("Введите фамилию:");
+                        surname = scanner.nextLine();
+
+                        System.out.println("Введите никнейм:");
+                        nickname = scanner.nextLine();
+
+                        System.out.println("Введите email:");
+                        email = scanner.nextLine();
+                    }
                     try {
-                        if (Mode.DEFAULT == CommonUtils.mode) {
-                            System.out.println("Введите имя:");
-                            name = scanner.nextLine();
-
-                            System.out.println("Введите фамилию:");
-                            surname = scanner.nextLine();
-
-                            System.out.println("Введите никнейм:");
-                            nickname = scanner.nextLine();
-
-                            System.out.println("Введите email:");
-                            email = scanner.nextLine();
-                        }
-
                         Contact contact = new Contact(name, surname, nickname, email);
-                        contact.addPhone("911", PhoneNumber.PhoneType.MOBILE);
+                        contact.addPhone("9119122342", PhoneNumber.PhoneType.MOBILE);
                         contacts.add(contact);
-                    } catch (IllegalArgumentException ex) {
+                        System.out.println("Контакт добавлен");
+                    } catch (IllegalPhoneException | IllegalEmailException ex) {
                         System.out.println(ex.getMessage());
                     }
                 }
                 case 1 -> {
-                    contacts.forEach(System.out::println);
+                    if (contacts.isEmpty()) {
+                        System.out.println("Контакты отсутствуют");
+                    } else {
+                        contacts.forEach(System.out::println);
+                    }
                 }
                 case 2 -> {
                     System.out.println("Введите номер телефона или имя:");
-                    String nameOrPhone = scanner.nextLine();
+                    String nameOrPhone = scanner.nextLine().trim();
                     List<Contact> findContacts = contacts.stream().filter(contact ->
-                            nameOrPhone.equalsIgnoreCase(contact.getFirstName())
+                            nameOrPhone.equalsIgnoreCase(contact.getFirstName().trim())
                                     || contact.getAllPhoneNumbers().stream().anyMatch(phone -> nameOrPhone.equals(phone.number()))
                     ).toList();
-                    findContacts.forEach(System.out::println);
+                    if (findContacts.isEmpty()) {
+                        System.out.println("Контакт не найден");
+                    } else {
+                        findContacts.forEach(System.out::println);
+                    }
+                }
+                case 3 -> {
+                    System.out.println("Введите путь к файлу для сохранения:");
+                    String path = scanner.nextLine();
+                    TextFileProcessor.saveObjects(path, contacts);
+                }
+                case 4 -> {
+                    System.out.println("Введите путь к файлу для считывания:");
+                    String path = scanner.nextLine();
+                    contacts.retainAll(List.of(TextFileProcessor.readObjects(path)));
                 }
                 default -> ConsoleHelper.printError("Неизвестная команда.");
             }

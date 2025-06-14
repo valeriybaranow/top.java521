@@ -123,6 +123,35 @@ public class TextFileProcessor {
     public record StatisticDto(long line, long count) {
     }
 
+    public static <T> void saveObjects(String filePath, List<T> list) {
+        for (final T object : list) {
+            // Запись объекта в файл
+            try (ObjectOutputStream oos = new ObjectOutputStream(
+                    new FileOutputStream(filePath))) {
+                oos.writeObject(object);
+                System.out.println("Объект записан в файл");
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    public static <T> T[] readObjects(String filePath) {
+        // Чтение массива из файла
+        try (ObjectInputStream ois = new ObjectInputStream(
+                new FileInputStream(filePath))) {
+            T[] loaded = (T[]) ois.readObject();
+            System.out.println("Прочитанный массив:");
+            for (T p : loaded) {
+                System.out.println(p);
+            }
+            return loaded;
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static int copyFile(List<String> filePaths) throws IOException {
         StringBuilder content = new StringBuilder();
         int butes = 0;

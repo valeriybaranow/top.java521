@@ -8,15 +8,15 @@ public record PhoneNumber(String number, homeworks.files.taskfive.PhoneNumber.Ph
         this.type = type;
     }
 
-    private String validate(String number) throws IllegalArgumentException {
+    private String validate(String number) throws IllegalPhoneException {
         if (number == null || number.isEmpty()) {
-            throw new IllegalArgumentException("Номер телефона не может быть пустым");
+            throw new IllegalPhoneException("Номер телефона не может быть пустым");
         }
 
         String cleanedNumber = number.replaceAll("[^0-9]", "");
 
         if (cleanedNumber.length() < 6) {
-            throw new IllegalArgumentException("Номер телефона должен быть не менее 6-ти символов");
+            throw new IllegalPhoneException("Номер телефона должен быть не менее 6-ти символов");
         }
 
         return cleanedNumber;
