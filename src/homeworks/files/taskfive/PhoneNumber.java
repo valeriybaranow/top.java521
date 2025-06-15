@@ -1,8 +1,9 @@
 package homeworks.files.taskfive;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public record PhoneNumber(String number, homeworks.files.taskfive.PhoneNumber.PhoneType type) {
+public record PhoneNumber(String number, homeworks.files.taskfive.PhoneNumber.PhoneType type) implements Serializable {
     public PhoneNumber(String number, PhoneType type) {
         this.number = validate(number);
         this.type = type;

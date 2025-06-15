@@ -1,5 +1,7 @@
 package homeworks.files;
 
+import homeworks.files.taskfive.Contact;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -123,33 +125,37 @@ public class TextFileProcessor {
     public record StatisticDto(long line, long count) {
     }
 
-    public static <T> void saveObjects(String filePath, List<T> list) {
-        for (final T object : list) {
-            // Запись объекта в файл
-            try (ObjectOutputStream oos = new ObjectOutputStream(
-                    new FileOutputStream(filePath))) {
+    public static void saveObjects(String filePath, List<Contact> list) {
+        // Запись объекта в файл
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath))) {
+            // Записываем количество объектов
+            oos.writeInt(list.size());
+            for (final Contact object : list) {
                 oos.writeObject(object);
-                System.out.println("Объект записан в файл");
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
             }
+            System.out.println("Объект записан в файл");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
     }
 
-    public static <T> T[] readObjects(String filePath) {
-        // Чтение массива из файла
+    public static List<Contact> readObjects(String filePath) {
+        List<Contact> objects = new ArrayList<>();
+
         try (ObjectInputStream ois = new ObjectInputStream(
                 new FileInputStream(filePath))) {
-            T[] loaded = (T[]) ois.readObject();
-            System.out.println("Прочитанный массив:");
-            for (T p : loaded) {
-                System.out.println(p);
+            // Читаем количество объектов
+            int count = ois.readInt();
+
+            // Читаем объекты в цикле
+            for (int i = 0; i < count; i++) {
+                Contact object = (Contact) ois.readObject();
+                objects.add(object);
             }
-            return loaded;
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
-        return null;
+        return objects;
     }
 
     public static int copyFile(List<String> filePaths) throws IOException {

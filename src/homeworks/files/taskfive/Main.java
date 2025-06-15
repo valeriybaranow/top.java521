@@ -96,11 +96,15 @@ public class Main {
                     System.out.println("Введите путь к файлу для сохранения:");
                     String path = scanner.nextLine();
                     TextFileProcessor.saveObjects(path, contacts);
+                    System.out.println("Телефонная книга сохранена в файл");
+                    System.out.printf("Контакты для телефонной книги выгружены в файл %s\n", path);
                 }
                 case 4 -> {
                     System.out.println("Введите путь к файлу для считывания:");
                     String path = scanner.nextLine();
-                    contacts.retainAll(List.of(TextFileProcessor.readObjects(path)));
+                    contacts.clear();
+                    contacts.addAll(TextFileProcessor.readObjects(path));
+                    System.out.printf("Контакты для телефонной книги загружены из файла %s\n", path);
                 }
                 default -> ConsoleHelper.printError("Неизвестная команда.");
             }
