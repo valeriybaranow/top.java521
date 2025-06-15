@@ -1,12 +1,10 @@
-package lessons.threadtwo.taskone;
+package homeworks.thread.tasktwo;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Cashier extends Thread {
     private final String cashierName;
-    protected List<Integer> sums = new ArrayList<>();
-    protected Integer flag = 0;
+    protected List<Integer> sums;
     protected CashRegister cashRegister;
 
     public Cashier(String name, List<Integer> sums, CashRegister cashRegister) {
@@ -16,23 +14,8 @@ public abstract class Cashier extends Thread {
         this.setName(name);
     }
 
-    public abstract void executeOperations() throws InterruptedException;
-
     public String getCashierName() {
         return cashierName;
-    }
-
-    public List<Integer> getSums() {
-        return sums;
-    }
-
-    @Override
-    public void run() {
-        try {
-            executeOperations();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     @Override
