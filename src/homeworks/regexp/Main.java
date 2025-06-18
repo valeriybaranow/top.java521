@@ -1,6 +1,5 @@
 package homeworks.regexp;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 // TODO: разобраться в регулярными выпражениями
@@ -59,32 +58,44 @@ public class Main {
         // "А.++а" // сверхжадный режим
         // "А.+?а" // ленивый режим
 
-        String text = "Егор Алла Александр";
-        System.out.println("жадный поиск в строке - " + text);
-        Pattern pattern1 = Pattern.compile("А.+а");
-        Matcher matcher = pattern1.matcher(text);
-        while (matcher.find()) {
-            System.out.println(text.substring(matcher.start(), matcher.end()));
-        }
+//        String text = "Егор Алла Александр";
+//        System.out.println("жадный поиск в строке - " + text);
+//        Pattern pattern1 = Pattern.compile("А.+а");
+//        Matcher matcher = pattern1.matcher(text);
+//        while (matcher.find()) {
+//            System.out.println(text.substring(matcher.start(), matcher.end()));
+//        }
+//
+//        System.out.println("сверхжадный поиск в строке - " + text);
+//        Pattern pattern2 = Pattern.compile("А.++а");
+//        Matcher matcher2 = pattern2.matcher(text);
+//        while (matcher2.find()) {
+//            System.out.println(text.substring(matcher2.start(), matcher2.end()));
+//        }
+//
+//        System.out.println("ленивый поиск в строке - " + text);
+//        Pattern pattern3 = Pattern.compile("А.+?а");
+//        Matcher matcher3 = pattern3.matcher(text);
+//        while (matcher3.find()) {
+//            System.out.println(text.substring(matcher3.start(), matcher3.end()));
+//        }
+//
+//        System.out.println("email");
+//        String regex = "^[a-zA-Z0-9].[a-zA-Z0-9\\._%\\+\\-]{0,63}@[a-zA-Z0-9\\.\\-]+\\.[a-zA-Z]{2,30}$";
+//        if (Pattern.matches(regex, "asdf@sdfa.ru")) {
+//            System.out.println("yes");
+//        }
+//
+//        long countInLine =
+//                Pattern.compile("\\b[А-Яа-яA-Za-z]+\\b").matcher("фывафыва афыв слово").results().count();
+//        System.out.println(countInLine);
 
-        System.out.println("сверхжадный поиск в строке - " + text);
-        Pattern pattern2 = Pattern.compile("А.++а");
-        Matcher matcher2 = pattern2.matcher(text);
-        while (matcher2.find()) {
-            System.out.println(text.substring(matcher2.start(), matcher2.end()));
-        }
 
-        System.out.println("ленивый поиск в строке - " + text);
-        Pattern pattern3 = Pattern.compile("А.+?а");
-        Matcher matcher3 = pattern3.matcher(text);
-        while (matcher3.find()) {
-            System.out.println(text.substring(matcher3.start(), matcher3.end()));
-        }
+        String text = "Java 17 — новый LTS-релиз (2021 год).";
+        long wordCount = Pattern.compile("\\b[А-Яа-яA-Za-zЁё'0-9-]+\\b", Pattern.UNICODE_CHARACTER_CLASS).matcher(text).results().count();
+        ; // Только слова (рус/англ)
 
-        System.out.println("email");
-        String regex = "^[a-zA-Z0-9].[a-zA-Z0-9\\._%\\+\\-]{0,63}@[a-zA-Z0-9\\.\\-]+\\.[a-zA-Z]{2,30}$";
-        if (Pattern.matches(regex, "asdf@sdfa.ru")) {
-            System.out.println("yes");
-        }
+
+        System.out.println("Количество слов: " + wordCount);
     }
 }
