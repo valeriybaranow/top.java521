@@ -1,13 +1,11 @@
 package exams.java;
 
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Scanner;
 
 /*
-    Третий вариант.
-    Создать приложение «Коллекция текстовых документов».
+    Третий вариант. Создать приложение «Коллекция текстовых документов».
+
     Проект должен позволять выполнять базовые операции с текстовыми документами.
     1. Открытие документа (если содержимое документа не помещается на одном экране, нужно организовать постраничный вывод
      с возможностью перехода вперед или назад на одну страницу),
@@ -24,38 +22,29 @@ import java.util.Scanner;
  */
 public class App {
     private static String pathDir = ".";
+    private static int menuLevel = 0;
+
 
     public static void main(String[] args) {
-
         Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8);
 
-        FileManager fileManager = new FileManager("Файловый менеджер");
+        FileManager fileManager = FileManager.instance("Коллекция текстовых документов");
         fileManager.showDir(pathDir);
-        fileManager.start(choice -> {
-            switch (choice) {
+
+        fileManager.start(menuItem -> {
+            switch (menuItem) {
                 case 0 -> {
+//                    System.out.print("\033[H\033[2J");
+//                    System.out.flush();
                     System.out.print("выберите папку: ");
                     pathDir = scanner.nextLine();
-
-                    if (pathDir.startsWith("//")) {
-                        pathDir = pathDir.substring(1); // Убираем один слеш
-                    }
-
-                    if (TextFileProcessor.checkFileExists(pathDir)) {
-                        fileManager.showDir(pathDir);
-                    } else {
-                        FileManager.printError("папка " + pathDir + " не существует");
-                    }
+                    fileManager.showDir(pathDir);
                 }
                 case 1 -> {
-                    pathDir = "data";
-                    Path pathFile = Paths.get(pathDir, "readFile.txt");
-
-                    if (TextFileProcessor.checkFileExists(pathFile.toString())) {
-                        fileManager.showFile(pathFile);
-                    } else {
-                        FileManager.printError("папка " + pathFile + " не существует");
-                    }
+                    System.out.print("\033[H\033[2J");
+                    System.out.flush();
+                    String fileName = "C:\\Users\\valeriy\\IdeaProjects\\top.java521\\data\\readFile.txt";
+                    fileManager.showFile(fileName);
                 }
                 case 2 -> {
 
@@ -64,10 +53,7 @@ public class App {
 
                 }
                 case 4 -> {
-                    System.out.println("Введите путь к файлу для считывания:");
-                    String path = scanner.nextLine();
 
-                    System.out.printf("Контакты для телефонной книги загружены из файла %s\n", path);
                 }
                 default -> FileManager.printError("Неизвестная команда.");
             }

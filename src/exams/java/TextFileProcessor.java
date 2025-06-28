@@ -14,18 +14,16 @@ public class TextFileProcessor {
     public static List<FileInfo> foundFiles = new ArrayList<>();
     public static boolean isError = false;
 
-    public static void saveStructureFolder(String path) throws IOException {
+    public static void saveStructureFolder(Path currentPath) throws IOException {
         TextFileProcessor.foundFiles.clear();
         TextFileProcessor.isError = false;
-        Path startDir = Paths.get(path);
-        PrintFiles pf = new PrintFiles(startDir);
-        Files.walkFileTree(startDir, pf);
+        PrintFiles pf = new PrintFiles(currentPath);
+        Files.walkFileTree(currentPath, pf);
     }
 
-    public static boolean checkFileExists(String filePath) {
-        Path path = Paths.get(filePath);
+    public static boolean checkFileExists(Path currentPath) {
         // Проверка существования файла
-        if (!Files.exists(path)) {
+        if (!Files.exists(currentPath)) {
             return false;
         }
         return true;

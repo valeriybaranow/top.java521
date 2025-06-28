@@ -5,6 +5,8 @@ import homeworks.files.taskfive.IllegalPhoneException;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.ZoneId;
@@ -21,8 +23,55 @@ public class FileManager {
     private final String[] menuShowFileItems = {"следующая страница", "предыдущая страница", "назад"};
     private String title;
 
-    public FileManager(String title) {
+    private static Path currentPath = Paths.get(".");
+    private Integer[] menuItems = {0, -1};
+
+    private FileManager(String title) {
         this.title = title;
+    }
+
+    public static FileManager instance(String title) {
+        return new FileManager(title);
+    }
+
+    public static void printError(String error) {
+        System.out.print(ConsoleColors.RED + "[ERROR] " + error + ConsoleColors.RESET);
+    }
+
+    private static void printTitle(String title) {
+        System.out.println("\n=============================== " + title + " ===============================");
+    }
+
+    private static Path checkAndNormalizeCurrentPath(String pathDir, Path currentPath) {
+        // Проверка на null или пустую строку
+        if (pathDir == null || pathDir.trim().isEmpty()) {
+            FileManager.printError("Путь не может быть пустым");
+            return currentPath;
+        }
+
+        // Проверка на некорректное начало пути (//, \\, / и т.д.)
+        if (pathDir.startsWith("//") || pathDir.startsWith("\\\\")) {
+            FileManager.printError("Некорректный формат пути: " + pathDir);
+            return currentPath;
+        }
+
+        try {
+            Path currentPathNew = currentPath.resolve(pathDir).normalize();
+
+            // Проверка существования пути (исправлено - проверяем newPath, а не currentPath)
+            if (!Files.exists(currentPathNew)) {
+                FileManager.printError("Папка " + currentPathNew + " не существует");
+                return currentPath;
+            }
+
+            return currentPathNew;
+        } catch (InvalidPathException ex) {
+            FileManager.printError("Некорректный путь: " + pathDir + " - " + ex.getMessage());
+            return currentPath;
+        } catch (SecurityException ex) {
+            FileManager.printError("Нет доступа к пути: " + pathDir);
+            return currentPath;
+        }
     }
 
     private static int readInt(String prompt, int min, int max) {
@@ -77,18 +126,6 @@ public class FileManager {
         System.out.println(ConsoleColors.GREEN + "[INFO] " + message + ConsoleColors.RESET);
     }
 
-    public static void printError(String error) {
-        System.out.println(ConsoleColors.RED + "[ERROR] " + error + ConsoleColors.RESET);
-    }
-
-    private static void printTitle(String title, String pathDir) {
-        System.out.println("\n===================================== " + title + " ======================================");
-    }
-
-    private static void printSeparatorLine() {
-        System.out.println("==============================================================================================");
-    }
-
     public void start(Consumer<Integer> actionHandler) {
         while (true) {
             int menuItem = readInt("Выберите пункт: ", 1, menuShowFolderItems.length);
@@ -98,18 +135,21 @@ public class FileManager {
                 break;
             }
 
-            actionHandler.accept(menuItem - 1); // Передаем индекс выбранного пункта
+            int menuLevelOne = menuItem - 1;
+
+            actionHandler.accept(menuLevelOne); // Передаем индекс выбранного пункта
         }
     }
 
     public void showDir(String pathDir) {
+        currentPath = checkAndNormalizeCurrentPath(pathDir, currentPath);
         try {
-            TextFileProcessor.saveStructureFolder(pathDir);
+            TextFileProcessor.saveStructureFolder(currentPath);
             if (TextFileProcessor.isError == false) {
-                printTitle(title, pathDir);
+                printTitle(title);
                 System.out.printf("| %-10s | %-18s | %-12s | %-19s | %-19s |%n", "Тип", "Имя", "Размер, байт", "Дата создания", "Автор");
                 printSeparatorLine();
-                System.out.printf("| %-90s |%n", Paths.get(pathDir).toRealPath());
+                System.out.printf("| %-90s |%n", currentPath.toAbsolutePath().normalize());
                 TextFileProcessor.foundFiles.forEach(foundFile -> {
                     System.out.printf(
                             "| %-10s | %-18s | %-12s | %-19s | %-19s |%n",
@@ -133,9 +173,14 @@ public class FileManager {
         }
     }
 
-    public void showFile(Path pathFile) {
+    private static void printSeparatorLine() {
+        System.out.println("==============================================================================================");
+    }
+
+    public void showFile(String pathFile) {
+        currentPath = checkAndNormalizeCurrentPath(pathFile, currentPath);
         try {
-            List<String> content = TextFileProcessor.readFile(pathFile);
+            List<String> content = TextFileProcessor.readFile(currentPath);
             printSeparatorLine();
             content.stream().skip(currentLine).limit(countLines).forEach(System.out::println);
             printSeparatorLine();
