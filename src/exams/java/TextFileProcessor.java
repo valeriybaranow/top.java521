@@ -2,12 +2,23 @@ package exams.java;
 
 import homeworks.files.taskfive.Contact;
 
-import java.io.*;
-import java.nio.file.*;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.nio.charset.Charset;
+import java.nio.charset.MalformedInputException;
+import java.nio.charset.StandardCharsets;
+import java.nio.charset.UnmappableCharacterException;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.FileTime;
 import java.nio.file.attribute.UserPrincipal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class TextFileProcessor {
@@ -21,76 +32,44 @@ public class TextFileProcessor {
         Files.walkFileTree(currentPath, pf);
     }
 
-    public static boolean checkFileExists(Path currentPath) {
-        // Проверка существования файла
-        if (!Files.exists(currentPath)) {
-            return false;
-        }
-        return true;
-    }
-
     public static List<String> readFile(Path filePath) throws IOException {
+        List<Charset> encodings = Arrays.asList(
+                StandardCharsets.UTF_8,
+                StandardCharsets.ISO_8859_1,
+                Charset.forName("Windows-1251"),
+                StandardCharsets.UTF_16
+        );
+
         List<String> content = new ArrayList<>();
-        try (BufferedReader reader = Files.newBufferedReader(filePath)) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                content.add(line);
-            }
-        }
-        return content;
-    }
+        IOException lastException = null;
 
-    public static int replaceWords(String filePath, final String searchWord, final String replacementWord) throws IOException {
-        int count = 0;
-        // конструкция try-with-resources (try со скобками)
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(filePath));
-            StringBuilder content = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                if (line.toLowerCase().contains(searchWord.toLowerCase())) {
-                    count++;
+        for (Charset encoding : encodings) {
+            try {
+                content.clear(); // Очищаем на случай предыдущих попыток
+                try (BufferedReader reader = Files.newBufferedReader(filePath, encoding)) {
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        content.add(line);
+                    }
+                    return content; // Успешное чтение
                 }
-                // (?i) - игнорирование регистра
-                // Замена только целых слов с границами (\b)
-                content.append(line.replaceAll("(?iu)" + searchWord, replacementWord)).append("\n");
+            } catch (MalformedInputException | UnmappableCharacterException e) {
+                lastException = e;
+                continue;
             }
-            reader.close();
-
-            // перезапись файла
-            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
-            writer.write(content.toString());
-            writer.close();
-
-        } catch (IOException e) {
-            throw new IOException(e.getMessage());
         }
-        return count;
+
+        throw new IOException("Не удалось прочитать файл с доступными кодировками", lastException);
     }
 
-    public static void saveObjects(String filePath, List<Contact> list) {
-        // Запись объекта в файл
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath))) {
-            // Записываем количество объектов
-            oos.writeInt(list.size());
-            for (final Contact object : list) {
-                oos.writeObject(object);
-            }
-            System.out.println("Объект записан в файл");
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
+    // TODO: метод нужно удалить
     public static List<Contact> readObjects(String filePath) {
         List<Contact> objects = new ArrayList<>();
 
         try (ObjectInputStream ois = new ObjectInputStream(
                 new FileInputStream(filePath))) {
-            // Читаем количество объектов
             int count = ois.readInt();
 
-            // Читаем объекты в цикле
             for (int i = 0; i < count; i++) {
                 Contact object = (Contact) ois.readObject();
                 objects.add(object);
@@ -99,27 +78,6 @@ public class TextFileProcessor {
             System.out.println(e.getMessage());
         }
         return objects;
-    }
-
-    public static int copyFile(List<String> filePaths) throws IOException {
-        StringBuilder content = new StringBuilder();
-        int butes = 0;
-        int i = 1;
-        for (final String filePath : filePaths) {
-            Path path = Paths.get(String.valueOf(filePath));
-            if (i < filePaths.size()) {
-                String fileText = Files.readString(path).toString();
-                content.append(fileText).append("\n");
-                butes += fileText.getBytes().length;
-            } else {
-                // перезапись файла
-                BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true));
-                writer.write(content.toString());
-                writer.close();
-            }
-            ++i;
-        }
-        return butes;
     }
 
     public static class FileInfo {
@@ -171,6 +129,17 @@ public class TextFileProcessor {
 
         public enum Mode {
             SYMLINK, FILE, FOLDER, OTHER
+        }
+
+        @Override
+        public String toString() {
+            return "FileInfo{" +
+                    "name='" + name + '\'' +
+                    ", mode=" + mode +
+                    ", size=" + size +
+                    ", author='" + author + '\'' +
+                    ", creationTime=" + creationTime +
+                    '}';
         }
     }
 
