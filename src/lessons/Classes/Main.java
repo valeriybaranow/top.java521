@@ -5,9 +5,14 @@ import java.util.TreeMap;
 
 public class Main {
     // Outer class - лежит на верхнем уровне, не вложен никуда
+
+
+    // Внутренние классы бывают статические и нестатические.
+    // Статические классы еще называют вложенными (static nested class),
+    // нестатические просто называют внутренними классами (inner class).
     // Nested class - лежит в другом классе
     //    static Nested class -
-    //    static Nested class -
+    //    inner class -
     // Local class - лежит в методе
     // Anonim class -
     // лямбда выражение функция
