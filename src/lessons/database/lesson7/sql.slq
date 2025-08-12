@@ -1,0 +1,28 @@
+CREATE DATABASE magazin
+ GO
+USE magazin
+CREATE TABLE Personal
+(
+    Id INT IDENTITY PRIMARY KEY,
+    FirstName NVARCHAR(20) NOT NULL,
+    LastName NVARCHAR(20) NOT NULL,
+	Age int NOT NULL
+);
+CREATE TABLE Clients
+(
+    Id INT IDENTITY PRIMARY KEY,
+    FirstName NVARCHAR(20) NOT NULL,
+    LastName NVARCHAR(20) NOT NULL,
+);
+ INSERT INTO Personal VALUES
+('Tom', 'Smith', 18),
+('Sam', 'Brown', 19),
+('Mark', 'Adams', 20),
+('Paul', 'Ins', 14),
+('John', 'Smith', 25),
+('Tim', 'Cook', 26)
+ INSERT INTO Clients VALUES
+('Homer', 'Simpson'),
+('Tom', 'Smith'),
+('Mark', 'Adams'),
+('Nick', 'Svensson')
