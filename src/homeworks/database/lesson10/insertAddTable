@@ -1,0 +1,184 @@
+USE [AcademyForHwSeven]
+GO
+
+-- Insert data into Assistants table (using first 20 teachers as assistants)
+INSERT INTO [dbo].[Assistants] ([TeacherId])
+SELECT Id
+FROM Teachers
+WHERE Id BETWEEN 1 AND 20
+GO
+
+-- Insert data into Curators table (using next 30 teachers as curators)
+-- Note: We already have a Curators table with Name/Surname, so we'll modify it first
+-- First, let's clear the existing data if any
+DELETE FROM [dbo].[Curators]
+GO
+
+-- Now insert new data linking to Teachers
+INSERT INTO [dbo].[Curators] ([TeacherId])
+SELECT Id
+FROM Teachers
+WHERE Id BETWEEN 21 AND 50
+GO
+
+-- Insert data into Deans table (using senior teachers as deans)
+INSERT INTO [dbo].[Deans] ([TeacherId])
+SELECT Id
+FROM Teachers
+WHERE Id IN (
+    SELECT TOP 10 Id
+    FROM Teachers
+    ORDER BY Salary DESC
+)
+GO
+
+-- Update GroupsCurators to use the new Curators table structure
+-- First clear existing data
+DELETE FROM [dbo].[GroupsCurators]
+GO
+
+-- Now insert new mappings (each group gets 1-2 curators)
+-- Groups 1-10
+INSERT INTO [dbo].[GroupsCurators] ([GroupId], [CuratorId])
+VALUES
+(1, 1), (1, 2),
+(2, 3),
+(3, 4), (3, 5),
+(4, 6),
+(5, 7), (5, 8),
+(6, 9),
+(7, 10), (7, 11),
+(8, 12),
+(9, 13), (9, 14),
+(10, 15),
+
+-- Groups 11-20
+(11, 16), (11, 17),
+(12, 18),
+(13, 19), (13, 20),
+(14, 21),
+(15, 22), (15, 23),
+(16, 24),
+(17, 25), (17, 26),
+(18, 27),
+(19, 28), (19, 29),
+(20, 30),
+
+-- Sample mappings for other groups
+(21, 1), (22, 2), (23, 3), (24, 4), (25, 5),
+(26, 6), (27, 7), (28, 8), (29, 9), (30, 10),
+(31, 11), (32, 12), (33, 13), (34, 14), (35, 15),
+(36, 16), (37, 17), (38, 18), (39, 19), (40, 20),
+(41, 21), (42, 22), (43, 23), (44, 24), (45, 25),
+(46, 26), (47, 27), (48, 28), (49, 29), (50, 30)
+GO
+
+-- For faculties, assign deans (each faculty gets one dean)
+-- First create a temporary table to map faculties to deans
+DECLARE @FacultyDean TABLE (
+    FacultyId INT,
+    DeanId INT
+)
+
+-- Insert mappings (each dean handles 1-2 faculties)
+INSERT INTO @FacultyDean (FacultyId, DeanId)
+VALUES
+(1, 1),  -- Computer Science faculty
+(2, 2),  -- Engineering faculty
+(3, 3),  -- Economics faculty
+(4, 4),  -- Foreign Languages faculty
+(5, 5),  -- Law faculty
+(6, 6),  -- Medicine faculty
+(7, 7),  -- Arts faculty
+(8, 8),  -- Natural Sciences faculty
+(9, 9),  -- Philology faculty
+(10, 10) -- Psychology faculty
+GO
+
+
+
+USE [AcademyForHwSeven]
+GO
+
+-- Update Faculties with building numbers (1-5)
+UPDATE [dbo].[Faculties] SET [Building] =
+CASE
+    WHEN [Id] = 1 THEN 1 -- Факультет компьютерных наук
+    WHEN [Id] = 2 THEN 1 -- Инженерный факультет
+    WHEN [Id] = 3 THEN 2 -- Экономический факультет
+    WHEN [Id] = 4 THEN 2 -- Факультет иностранных языков
+    WHEN [Id] = 5 THEN 3 -- Юридический факультет
+    WHEN [Id] = 6 THEN 3 -- Медицинский факультет
+    WHEN [Id] = 7 THEN 4 -- Факультет искусств
+    WHEN [Id] = 8 THEN 4 -- Факультет естественных наук
+    WHEN [Id] = 9 THEN 5 -- Филологический факультет
+    WHEN [Id] = 10 THEN 5 -- Факультет психологии
+END
+GO
+
+-- Update Departments with building numbers (same as their faculty)
+UPDATE d
+SET d.[Building] = f.[Building]
+FROM [dbo].[Departments] d
+JOIN [dbo].[Faculties] f ON d.[FacultyId] = f.[Id]
+GO
+
+-- For some departments, set different buildings than their faculty (example for 5 departments)
+UPDATE [dbo].[Departments] SET [Building] =
+CASE
+    WHEN [Id] = 2 THEN 2 -- Кафедра искусственного интеллекта (перемещаем в корпус 2)
+    WHEN [Id] = 5 THEN 3 -- Кафедра электротехники (перемещаем в корпус 3)
+    WHEN [Id] = 8 THEN 4 -- Кафедра бухгалтерского учета (перемещаем в корпус 4)
+    WHEN [Id] = 15 THEN 5 -- Кафедра гражданского права (перемещаем в корпус 5)
+    WHEN [Id] = 22 THEN 1 -- Кафедра музыки (перемещаем в корпус 1)
+END
+WHERE [Id] IN (2, 5, 8, 15, 22)
+GO
+
+
+INSERT INTO [dbo].[LectureRooms] ([Building], [Name])
+VALUES
+-- Building 1
+(1, 'A101'), (1, 'A102'), (1, 'A103'), (1, 'A201'), (1, 'A202'),
+(1, 'A203'), (1, 'A301'), (1, 'A302'), (1, 'A303'), (1, 'A401'),
+
+-- Building 2
+(2, 'B101'), (2, 'B102'), (2, 'B103'), (2, 'B201'), (2, 'B202'),
+(2, 'B203'), (2, 'B301'), (2, 'B302'), (2, 'B303'), (2, 'B401'),
+
+-- Building 3
+(3, 'C101'), (3, 'C102'), (3, 'C103'), (3, 'C201'), (3, 'C202'),
+(3, 'C203'), (3, 'C301'), (3, 'C302'), (3, 'C303'), (3, 'C401'),
+
+-- Building 4
+(4, 'D101'), (4, 'D102'), (4, 'D103'), (4, 'D201'), (4, 'D202'),
+(4, 'D203'), (4, 'D301'), (4, 'D302'), (4, 'D303'), (4, 'D401'),
+
+-- Building 5
+(5, 'E101'), (5, 'E102'), (5, 'E103'), (5, 'E201'), (5, 'E202'),
+(5, 'E203'), (5, 'E301'), (5, 'E302'), (5, 'E303'), (5, 'E401'),
+
+-- Special rooms
+(1, 'Конференц-зал 1'), (2, 'Конференц-зал 2'), (3, 'Конференц-зал 3'),
+(4, 'Компьютерный класс 1'), (5, 'Компьютерный класс 2'),
+(1, 'Лаборатория физики'), (2, 'Лаборатория химии'), (3, 'Лаборатория биологии'),
+(4, 'Медиазал'), (5, 'Актовый зал')
+GO
+
+-- Insert sample schedule data
+INSERT INTO [dbo].[Schedules] ([Class], [DayOfWeek], [Week], [LectureId], [LectureRoomId])
+SELECT
+    -- Random class between 1-8
+    ABS(CHECKSUM(NEWID())) % 8 + 1 AS Class,
+    -- Random day of week between 1-7
+    ABS(CHECKSUM(NEWID())) % 7 + 1 AS DayOfWeek,
+    -- Random week between 1-52
+    ABS(CHECKSUM(NEWID())) % 52 + 1 AS Week,
+    l.Id AS LectureId,
+    -- Random lecture room (from existing rooms)
+    (SELECT TOP 1 Id FROM [dbo].[LectureRooms] ORDER BY NEWID()) AS LectureRoomId
+FROM [dbo].[Lectures] l
+-- Create 2-3 schedule entries per lecture
+CROSS JOIN (SELECT 1 AS n UNION SELECT 2 UNION SELECT 3) AS numbers
+WHERE numbers.n <= (ABS(CHECKSUM(NEWID())) % 2 + 2) -- 2-3 entries per lecture
+GO
