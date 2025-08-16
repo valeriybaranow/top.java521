@@ -1,0 +1,166 @@
+USE [AcademyForHwFive]
+GO
+--=======================================
+--1. вывести количество преподавателей кафедры Кафедра программирования
+--=======================================
+--SELECT d.name, count(DISTINCT t.Id)
+--FROM Teachers t, Lectures l,  GroupsLectures gl, Groups g, Departments d
+--WHERE t.id = l.TeacherId
+--AND l.id = gl.LectureId
+--AND gl.GroupId = g.id
+--AND d.id = g.DepartmentId
+--GROUP BY d.name
+--HAVING d.name = 'Кафедра программирования'
+
+--SELECT d.name, COUNT(DISTINCT t.id) unique_teachers_count FROM Departments d
+--RIGHT JOIN Groups g ON g.DepartmentId = d.id
+--RIGHT JOIN GroupsLectures gl ON gl.GroupId = g.id
+--RIGHT JOIN Lectures l ON l.id = gl.LectureId
+--RIGHT JOIN Teachers t ON t.id = l.TeacherId
+--GROUP BY d.name
+--HAVING  d.name = 'Кафедра программирования'
+--=======================================
+--=======================================
+--2. Вывести количество лекций, которые читает преподаватель “Иван Иванов”.
+--=======================================
+--SELECT
+--	t.id,
+--	count(l.id),
+--	max(t.Name),
+--	max(t.Surname)
+--FROM
+--	Teachers t, Lectures l
+--WHERE
+--	t.id = l.TeacherId
+--GROUP BY
+--	t.id
+--HAVING
+--	max(t.Name) = 'Иван' and max(t.Surname) = 'Иванов';
+
+--SELECT
+--	t.id,
+--	count(l.id)
+--FROM
+--	Teachers t
+--JOIN
+--	Lectures l ON t.id = l.TeacherId
+--WHERE
+--	t.Name = 'Иван' and t.Surname = 'Иванов'
+--GROUP BY
+--	t.id
+--=======================================
+--=======================================
+--3.Вывести количество занятий, проводимых в аудитории “E501”.
+--=======================================
+--SELECT count(LectureRoom)
+--FROM Lectures
+--WHERE LectureRoom = 'E501'
+--GROUP BY LectureRoom;
+--=======================================
+--=======================================
+--4. Вывести названия аудиторий и количество лекций, проводимых в них.
+--=======================================
+--SELECT max(LectureRoom), count(LectureRoom)
+--FROM Lectures
+--GROUP BY LectureRoom
+--ORDER BY LectureRoom;
+--=======================================
+--=======================================
+--5. Вывести количество студентов, посещающих лекции преподавателя “Дмитрий Попов”.
+--=======================================
+-- в структуре БД нет данных о количестве студенов в группе
+--=======================================
+--=======================================
+--6. Вывести среднюю ставку преподавателей факультета “Факультет компьютерных наук”.
+--=======================================
+--SELECT
+--	max(f.name) AS faculty_name,
+--	AVG(t.Salary) avg_salary_teacher,
+--	COUNT(DISTINCT t.id) AS teachers_count
+--FROM Teachers t
+--JOIN Lectures l ON l.TeacherId = t.id
+--JOIN GroupsLectures gl ON gl.LectureId = l.id
+--JOIN Groups g ON g.id = gl.GroupId
+--JOIN Departments d ON d.id = g.DepartmentId
+--JOIN Faculties f ON d.FacultyId = f.id
+--WHERE f.name = 'Факультет компьютерных наук'
+--=======================================
+--=======================================
+--7. Вывести минимальное и максимальное количество студентов среди всех групп.
+--=======================================
+-- в структуре БД нет данных о количестве студенов в группе
+--=======================================
+
+--=======================================
+--8. Вывести средний фонд финансирования кафедр.
+--=======================================
+--SELECT AVG(Financing) FROM Departments;
+--=======================================
+
+--=======================================
+--9. Вывести полные имена преподавателей и количество читаемых ими дисциплин.
+--=======================================
+--SELECT
+--	max(concat(t.Name, ' ', t.Surname)) as teacher_full_name,
+--	count(DISTINCT s.id) count_subjects
+--FROM Teachers t
+--JOIN Lectures l ON t.id = l.TeacherId
+--JOIN Subjects s ON s.id = l.SubjectId
+--GROUP BY t.id;
+--=======================================
+
+--=======================================
+--10. Вывести количество лекций в каждый день недели.
+--=======================================
+--SELECT
+--	max(
+--		CASE DayOfWeek
+--			WHEN 1 THEN 'Воскресенье'
+--			WHEN 2 THEN 'Понедельник'
+--			WHEN 3 THEN 'Вторник'
+--			WHEN 4 THEN 'Среда'
+--			WHEN 5 THEN 'Четверг'
+--			WHEN 6 THEN 'Пятница'
+--			WHEN 7 THEN 'Суббота'
+--			ELSE 'Неизвестный день'
+--		END
+--	) as DayName,
+--	count(id) FROM Lectures
+--GROUP BY DayOfWeek
+--ORDER BY DayOfWeek
+--=======================================
+
+--=======================================
+--11. Вывести номера аудиторий и количество кафедр, чьи лекции в них читаются
+--=======================================
+--SELECT max(l.LectureRoom), max(d.Name), count(d.Id)
+--FROM Lectures l
+--LEFT JOIN GroupsLectures gl ON gl.LectureId = l.id
+--LEFT JOIN Groups g ON g.id = gl.GroupId
+--LEFT JOIN Departments d ON d.id = g.DepartmentId
+--GROUP BY d.id
+--ORDER BY max(l.LectureRoom);
+--=======================================
+
+--=======================================
+--12. Вывести названия факультетов и количество дисциплин, которые на них читаются.
+--=======================================
+--SELECT max(f.name), count(s.id)
+--FROM Faculties f
+--JOIN Departments d ON d.FacultyId = f.id
+--JOIN Groups g ON g.DepartmentId = d.id
+--JOIN GroupsLectures gl ON gl.GroupId = g.id
+--JOIN Lectures l ON l.id = gl.LectureId
+--JOIN Subjects s ON s.id = l.SubjectId
+--GROUP BY f.Id;
+--=======================================
+
+--=======================================
+--13. Вывести количество лекций для каждой пары преподаватель-аудитория
+--=======================================
+--SELECT l.LectureRoom, max(concat(t.Name, ' ', t.Surname )), count(l.Id)
+--FROM Lectures l
+--JOIN Teachers t ON l.TeacherId = t.id
+--JOIN Subjects s ON s.id = l.SubjectId
+--GROUP BY t.id, l.LectureRoom
+--ORDER BY  max(concat(t.Name, ' ', t.Surname ));
