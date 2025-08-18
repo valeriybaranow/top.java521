@@ -104,3 +104,16 @@ INSERT INTO StudentIt VALUES (3, 'NameIt3', 'Surname3', 5);
 INSERT INTO StudentIt VALUES (4,'NameIt4', 'Surname4', 2);
 INSERT INTO StudentIt VALUES (5, 'NameIt5', 'Surname5', 1);
 INSERT INTO StudentIt VALUES (6, 'NameIt6', 'Surname6', 3);
+
+
+
+USE [AdventureWorks2019]
+GO
+CREATE PROCEDURE uspGetEmployees
+AS
+SELECT
+   BusinessEntityID
+   , FirstName
+   , LastName
+FROM Person.Person;
+GO

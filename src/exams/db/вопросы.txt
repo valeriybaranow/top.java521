@@ -1,25 +1,172 @@
 1. Виды баз данных.
-2. Что такое СУБД
-3. Опишите табличную базу данных. Пример.
+
+2. Что такое СУБД - программа для создания данных, манипулирования, администринования, безоапсаности (целостность, надежность)
+
+3. Опишите табличную базу данных.
+совокупность данных хранящаяся в структурированном виде. Пример.  Строки и столбцы. Первичный ключ. Уникальность записи
+Столбцы фиксированы, строки нет.
+Строка уникальна за счет первичного ключа.
+Таблицы содержить данные и метаданные.
+
 4. Что такое поле базы данных?
+Совокупность данных, хранимая в соответствии с определенной схемой или в произвольном порядке
+
 5. Что такое запись базы данных?
+Запись - это строка таблицы, содержащая набор значений свойств, размещенный в полях базы данных.
+Информация об экземпляре одного объекта хранящегося в БД
+
 6. Что такое ключевое поле?
+Параметр однозначно характеризующий конкретных объект сохраненный в БД, а рамках таблицы (объекта опраделенного типа) он уникален
+
 7. Какие БД называют реляционными?
+реляция - отношение, зависимость, связь
+основана на реляционной модели данных
+хранение данных в виде таблиц имеющих связи друг с другом
+первичный и внешний ключ
+
 8. Какие типы связей между таблицами возможны в реляционных БД?
+Один ко многим и т д.
+
 9. Какие основные типы данных существуют в MS SQL?
+tinyint
+int
+smallint
+bigint
+bit
+decimal
+numeric
+money
+smallmoney
+
+date
+time
+datetime
+smalldatetime
+
+char
+varchar
+text
+
+nchar
+nvarchar
+ntext
+
+binary
+varbinary
+image
+
+json
+geography
+geometry
+vector
+xml
+
+
 10. В чем разница между CHAR, VARCHAR и NVARCHAR?
+фиксированная дилна
+переменная длина
+переменная длина юникод
+
 11. Что такое первичный ключ (PRIMARY KEY) и зачем он нужен?
+для уникальной идентификации записи в таблице
+для связей
+
 12. Какие ограничения (constraints) вы знаете в SQL Server?
+NOT NULL
+PRIMARY KEY
+UNIQUE
+DEFAULT
+FOREIGN KEY
+CHECK
+
 13. Как выбрать все записи из таблицы Employees?
+
+
 14. Как отфильтровать данные с помощью WHERE?
+
 15. В чем разница между INNER JOIN, LEFT JOIN, RIGHT JOIN и FULL JOIN?
+(INNER) JOIN: Returns records that have matching values in both tables
+LEFT (OUTER) JOIN: Returns all records from the left table, and the matched records from the right table
+RIGHT (OUTER) JOIN: Returns all records from the right table, and the matched records from the left table
+FULL (OUTER) JOIN: Returns all records when there is a match in either left or right table
+
 16. Как работает оператор GROUP BY? Приведите пример.
+
+
 17. Как удалить дубликаты строк в результате запроса?
+DISTINCT
+
 18. Какие агрегатные функции вы знаете? (SUM, AVG, COUNT, MIN, MAX)
+
 19. Как работает HAVING и чем отличается от WHERE?
+порядок
+FROM
+WHERE - фильтрация записей
+GROUP BY
+HAVING - фильтрация групп
+ORDER BY
+
 20. Как работает PARTITION BY в оконных функциях?
+
 21. Что такое индекс в SQL Server? Какие типы индексов существуют?
+ускоряют поиск, но замедляют вставку удаление
+
+Уникальный
+Неуникальный
+Простой
+Составной
+Частичный
+
 22. Что такое хранимая процедура (Stored Procedure)? Как ее создать?
+USE [AdventureWorks2019]
+GO
+CREATE PROCEDURE uspGetEmployees
+AS
+SELECT
+   BusinessEntityID
+   , FirstName
+   , LastName
+FROM Person.Person;
+GO
+
 23. Что такое триггер (Trigger)? Какие бывают типы триггеров?
+create trigger CheckTr16 on PC
+for insert
+as
+begin
+ declare @Id1 int
+ select @Id1 = Id from inserted
+-- проверяем, сколько прошло дней со дня издания
+     if (@Id1=16)
+         begin
+             raiserror('Нельзя! ',0,1)
+             rollback transaction
+         end
+    else
+        PRINT(' Данные добавлены успешно ')
+    End
+
 24. Как передавать параметры в хранимую процедуру?
+ALTER PROCEDURE uspGetEmployees
+  @lastname VARCHAR(40) = 'abel'
+AS
+SELECT
+   BusinessEntityID
+   , FirstName
+   , LastName
+FROM Person.Person
+WHERE LastName = @lastname;
+GO
+
+
 25. Как начать и завершить транзакцию в MS SQL?
+-- Начало транзакции
+START TRANSACTION;
+
+-- Отмена
+ROLLBACK;
+
+-- Применение изменений
+COMMIT;
+
+11

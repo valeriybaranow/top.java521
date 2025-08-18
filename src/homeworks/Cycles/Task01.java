@@ -1,4 +1,4 @@
-package homeworks.Cecles;
+package homeworks.Cycles;
 
 import java.util.Scanner;
 
