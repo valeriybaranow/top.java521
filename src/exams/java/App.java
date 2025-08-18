@@ -30,14 +30,14 @@ public class App {
         Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8);
 
         FileManager fileManager = FileManager.instance("Коллекция текстовых документов");
-        fileManager.cnangeDir(pathDir);
+        fileManager.changeDir(pathDir);
 
         fileManager.start(menuItems -> {
             switch (menuItems[0]) {
                 case 0 -> {
                     System.out.print("выберите папку: ");
                     pathDir = scanner.nextLine().trim();
-                    fileManager.cnangeDir(pathDir);
+                    fileManager.changeDir(pathDir);
                 }
                 case 1 -> {
                     switch (menuItems[1]) {

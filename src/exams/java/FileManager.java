@@ -26,7 +26,7 @@ public class FileManager {
     private String title;
     private static FileManager instance;
 
-    private static Path currentPath = Paths.get(".");
+    private static Path currentPath = Paths.get("C:\\Users\\valeriy\\IdeaProjects\\top.java521");
 
     private Integer[] menuItems = {0, -1};
     private int totalWidth = 90;
@@ -146,6 +146,7 @@ public class FileManager {
 
     public void start(Consumer<Integer[]> actionHandler) {
         while (true) {
+            printMenu(menuShowFolderItems);
             int menuItem = readInt("Выберите пункт меню: ", 1, menuShowFolderItems.length);
 
             if (menuItems[1] == -1) {
@@ -162,7 +163,7 @@ public class FileManager {
         }
     }
 
-    public void cnangeDir(String pathDir) {
+    public void changeDir(String pathDir) {
         if (checkCurrentPath(pathDir, currentPath)) {
             currentPath = currentPath.resolve(pathDir).normalize();
             refreshDir();
@@ -188,13 +189,13 @@ public class FileManager {
             );
         });
         printSeparatorLine();
-        printMenu(menuShowFolderItems);
+
     }
 
     public void refreshDir() {
         try {
             TextFileProcessor.saveStructureFolder(currentPath);
-            if (!TextFileProcessor.isError) {
+            if (TextFileProcessor.isError) {
                 TextFileProcessor.foundFiles.clear();
                 TextFileProcessor.isError = false;
                 return;
