@@ -1,0 +1,18 @@
+{
+  "liveServer.settings.port": 5501,
+  // Основные настройки переносов
+  "html.format.enable": true,
+  "html.format.wrapAttributes": "preserve",
+  "html.format.preserveNewLines": false,
+  "html.format.maxPreserveNewLines": 0,
+  "html.format.unformatted": "sup,a,span,code,em,strong",
+  // Настройки для Prettier
+  "prettier.htmlWhitespaceSensitivity": "ignore",
+  "prettier.printWidth": 120,
+  "prettier.proseWrap": "preserve",
+  // Настройки редактора
+  "editor.wordWrap": "wordWrapColumn",
+  "editor.wordWrapColumn": 120,
+  "editor.wrappingIndent": "same",
+  "livePreview.defaultPreviewPath": "/html/lesson1/hw1.html"
+}
