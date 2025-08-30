@@ -1,113 +1,175 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta charset="UTF-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>Document</title>
     <style>
-        ol.list-one {
-            margin: 10px 0;
-            padding: 10px;
-            background-color: #eea3b2;
-            color: white;
-        }
+      ol.list-one {
+        margin: 10px 0;
+        padding: 10px;
+        background-color: #eea3b2;
+        color: white;
+      }
 
-        ol.list-one li {
-            list-style-position: inside;
-            padding: 10px;
-            margin: 10px;
-            background-color: #c9697c;
-        }
+      ol.list-one li {
+        list-style-position: inside;
+        padding: 10px;
+        margin: 10px;
+        background-color: #c9697c;
+      }
 
-        ol.list-one li span {
-            width: fit-content;
-            padding: 10px;
-            background-color: #a33b50;
-        }
+      ol.list-one li span {
+        width: fit-content;
+        padding: 10px;
+        background-color: #a33b50;
+      }
 
-        .list-two {
-            margin: 10px 0;
-            padding: 0px;
-        }
+      .list-two {
+        margin: 10px 0;
+        padding: 0px;
+      }
 
-        .list-two li {
-            list-style-position: inside;
-            padding: 10px;
-        }
+      .list-two li {
+        list-style-position: inside;
+        padding: 10px;
+      }
 
-        .list-two li span {
-            margin-right: 15px;
-        }
+      .list-two li span {
+        margin-right: 15px;
+      }
 
-        .list-two li.checked span {
-            text-decoration: line-through;
-        }
+      .list-two li.checked span {
+        text-decoration: line-through;
+      }
 
-        .list-two li.unchecked {
-            list-style-image: url("./icons/unchecked_16.png");
-        }
+      .list-two li.unchecked {
+        list-style-image: url("./icons/unchecked_16.png");
+      }
 
-        .list-two li.checked {
-            list-style-image: url("./icons/checked_16.png");
-            background-color: #e4e4e4;
+      .list-two li.checked {
+        list-style-image: url("./icons/checked_16.png");
+        background-color: #e4e4e4;
+      }
 
-        }
+      .list-two li.unchecked.odd {
+        background-color: #aacfdc;
+      }
 
-        .list-two li.unchecked.odd {
-            background-color: #aacfdc;
-        }
+      .list-two li.unchecked.even {
+        background-color: #b1dae8;
+      }
 
-        .list-two li.unchecked.even {
-            background-color: #b1dae8;
-        }
+      .list-three {
+        background-color: #f6f6f6;
+        border: 1px #c0c0c0 solid;
+        padding: 5px 30px;
+      }
+
+      .list-three .dd-for-example {
+        display: block;
+        color: #999ca4;
+      }
     </style>
 </head>
 <body>
 <ol class="list-one">
-    <li><span>Apple</span></li>
-    <li><span>Orange</span></li>
-    <li><span>Pineapple</span></li>
-    <li><span>Pear</span></li>
-    <li><span>Cherry</span></li>
+  <li><span>Apple</span></li>
+  <li><span>Orange</span></li>
+  <li><span>Pineapple</span></li>
+  <li><span>Pear</span></li>
+  <li><span>Cherry</span></li>
 </ol>
 <h2>My To Do List</h2>
 <ul class="list-two">
-    <li class="unchecked odd">
-        <span>Hit the gym</span> <img src="./icons/close.png" width="7"/>
-    </li>
-    <li class="checked even">
-        <span>Pan bills</span> <img src="./icons/close.png" width="7"/>
-    </li>
-    <li class="unchecked odd">
-        <span>Meet John</span> <img src="./icons/close.png" width="7"/>
-    </li>
-    <li class="unchecked even">
-        <span>Buy Eggs</span> <img src="./icons/close.png" width="7"/>
-    </li>
-    <li class="checked odd">
-        <span>Read a book</span> <img src="./icons/close.png" width="7"/>
-    </li>
-    <li class="unchecked even">
-        <span>Organize Office</span> <img src="./icons/close.png" width="7"/>
-    </li>
-    <li class="unchecked odd">
-        <span>Eat dinner</span> <img src="./icons/close.png" width="7"/>
-    </li>
-    <li class="unchecked even">
-        <span>Buy apples</span> <img src="./icons/close.png" width="7"/>
-    </li>
-    <li class="unchecked odd">
-        <span>Met George</span> <img src="./icons/close.png" width="7"/>
-    </li>
-    <li class="unchecked even">
-        <span>Fet the cat</span> <img src="./icons/close.png" width="7"/>
-    </li>
-    <li class="checked odd">
-        <span>Write a letter</span> <img src="./icons/close.png" width="7"/>
-    </li>
-    <li class="unchecked even">
-        <span>Run 1 km</span> <img src="./icons/close.png" width="7"/>
-    </li>
+  <li class="unchecked odd">
+    <span>Hit the gym</span> <img src="./icons/close.png" width="7"/>
+  </li>
+  <li class="checked even">
+    <span>Pan bills</span> <img src="./icons/close.png" width="7"/>
+  </li>
+  <li class="unchecked odd">
+    <span>Meet John</span> <img src="./icons/close.png" width="7"/>
+  </li>
+  <li class="unchecked even">
+    <span>Buy Eggs</span> <img src="./icons/close.png" width="7"/>
+  </li>
+  <li class="checked odd">
+    <span>Read a book</span> <img src="./icons/close.png" width="7"/>
+  </li>
+  <li class="unchecked even">
+    <span>Organize Office</span> <img src="./icons/close.png" width="7"/>
+  </li>
+  <li class="unchecked odd">
+    <span>Eat dinner</span> <img src="./icons/close.png" width="7"/>
+  </li>
+  <li class="unchecked even">
+    <span>Buy apples</span> <img src="./icons/close.png" width="7"/>
+  </li>
+  <li class="unchecked odd">
+    <span>Met George</span> <img src="./icons/close.png" width="7"/>
+  </li>
+  <li class="unchecked even">
+    <span>Fet the cat</span> <img src="./icons/close.png" width="7"/>
+  </li>
+  <li class="checked odd">
+    <span>Write a letter</span> <img src="./icons/close.png" width="7"/>
+  </li>
+  <li class="unchecked even">
+    <span>Run 1 km</span> <img src="./icons/close.png" width="7"/>
+  </li>
 </ul>
+
+<div class="list-three">
+  <h2>Tag</h2>
+  <code>[t&aelig;g]</code>
+  <dl>
+    <dt>noun</dt>
+    <dd>
+      <ol>
+        <li>
+          a label attached to someone or something for the purpose of
+          identification or to give other information.
+          <span class="dd-for-example">
+                "he gave his pet a collar with a metal name tag"
+              </span>
+          synonyms: label, ticket, badge, mark, marker, tab, tally, sticker,
+          docket, stub, chit, chitt, counterfoi, flag, stamp
+          <span class="dd-for-example">"a price tag"</span>
+        </li>
+        <li>a small piece or part that is attached to a main body.</li>
+      </ol>
+    </dd>
+    <dt>verb</dt>
+    <dd>
+      <ol>
+        <li>
+          attach a label to.
+          <span class="dd-for-example">
+                "mothers suspected that their babies had been wrongly tagged
+                during an alarm at the hospital"
+              </span>
+          synonyms: label, attach tags to, put a label on, mark, ticket,
+          earmark, identify, docket, flag, indicate
+          <span class="dd-for-example">
+                "the bottles were tagged with colour-coded labels"
+              </span>
+        </li>
+        <li>
+          add to something, especially as an afterthought or with no real
+          connection.
+          <span class="dd-for-example">
+                "she meant to tag her question on at the end of her remarks"
+              </span>
+          synonyms: add, tack, join, attach, append, affix, annex
+          <span class="dd-for-example">
+                "their heads were so large that the rest of their bodies seemed
+                tagged on as an afterthought"
+              </span>
+        </li>
+      </ol>
+    </dd>
+  </dl>
+</div>
 </body>
 </html>

@@ -1,0 +1,71 @@
+body {
+    margin: 0;
+    background-color: rgb(216, 175, 175);
+}
+
+.container {
+    background-color: rgb(160, 99, 20);
+    width: 1000px;
+    height: 100%;
+    margin: auto;
+}
+
+.header {
+    background-color: aqua;
+    height: 80px;
+}
+
+.menu {
+    background-color: lightblue;
+    height: 40px;
+}
+
+.logo {
+    height: 100%;
+    padding: 10px;
+    padding-left: 30px;
+    box-sizing: border-box;
+    float: left;
+}
+
+.title {
+    color: red;
+    text-align: left;
+    margin: 0;
+    line-height: 80px;
+}
+
+.menu ul {
+    margin: 0;
+}
+
+.menu ul li {
+    display: inline;
+    line-height: 40px;
+    padding-right: 30px;
+}
+
+.menu ul li a {
+    text-decoration: none;
+}
+
+.menu ul li a:hover {
+    color: white;
+}
+
+.sidebar {
+    height: 300px;
+    width: 20%;
+    float: left;
+    background-color: palevioletred;
+}
+
+.main {
+    height: 300px;
+    background-color: blueviolet;
+}
+
+.footer {
+    background-color: blue;
+    height: 100px;
+}

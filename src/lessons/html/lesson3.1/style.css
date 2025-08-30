@@ -1,0 +1,35 @@
+.box {
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    border: 5px solid black;
+    margin: 5px;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    background-color: white;
+    width: 900px;
+    height: 500px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap-reverse;
+    /* justify-content: space-evenly;
+    flex-direction: column; */
+}
+
+.header {
+    background-color: aqua;
+    height: 100px;
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 100px;
+    height: 100px;
+}
