@@ -1,0 +1,47 @@
+$
+header-color: red
+
+;
+$
+span-color: blue
+
+;
+$
+p-color: yellow
+
+;
+$
+content-color: yellow
+
+;
+$
+header-color:
+
+rgb
+(
+87
+,
+187
+,
+129
+)
+;
+$
+header-text-color: yellow
+
+;
+$
+temp:
+
+10
+px
+
+;
+$
+text-size:
+
+$
+temp +
+
+10
+;

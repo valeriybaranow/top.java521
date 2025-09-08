@@ -1,0 +1,78 @@
+@import 'variables';
+@import 'mixin';
+
+// @function calc-my($size) {
+//     @return $size*$size;
+// }
+
+* {
+  font-size: $text-size;
+}
+
+.box {
+  background-color: yellow;
+  font-size: 30px;
+  display: flex;
+
+}
+
+@while $i>0 {
+  .box:nth-last-child(#{$i}) {
+    background-color: rgb(random(255), random(255), random(255));
+  }
+}
+
+// $i:70;
+
+.container {
+  background-color: $content-color;
+  height: 1000px;
+  color: blue;
+
+  h1 {
+    background-color: $header-color;
+    color: blue;
+  }
+
+  span {
+    color: $span-color;
+  }
+
+  p {
+    background-color: $p-color;
+  }
+
+  .ok {
+    @include button-style-with-hover(rgb(216, 196, 196), blue, green)
+  }
+
+  .test {
+    @include button-style(rgb(204, 62, 62), blue)
+  }
+
+  .da {
+    @include button-style(rgb(59, 139, 86), blue)
+  }
+
+  .da {
+    @include btns-types(mobile);
+  }
+}
+
+.btn {
+  border: 2px solid black;
+  width: max-content;
+  margin: 5px;
+  padding: 5px;
+  cursor: pointer;
+  color: red;
+  border-radius: 12px;
+  background-color: green;
+}
+
+// .da {
+//     @extend .btn;
+//     color: yellow;
+//     font-size: calc-my(10)+'px
+//     ';
+// }

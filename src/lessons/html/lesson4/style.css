@@ -1,0 +1,85 @@
+li {
+    font-size: 35px;
+}
+
+li:first-child {
+    color: red;
+}
+
+li:last-child {
+    color: green;
+}
+
+li:only-child {
+    color: yellow
+}
+
+* {
+    font-size: 35px;
+    /* user-select: none; */
+}
+
+p:first-of-type {
+    color: red;
+}
+
+p:last-of-type {
+    color: gold;
+}
+
+li:nth-child(5) {
+    color: blanchedalmond;
+}
+
+li:nth-last-child(5) {
+    color: rgb(30, 234, 330);
+}
+
+li:nth-last-child(3n-1) {
+    color: rgb(30, 234, 330);
+}
+
+li:nth-of-type(5) {
+    color: aquamarine;
+}
+
+p::first-letter {
+    color: rgb(0, 50, 0);
+}
+
+p::first-line {
+    color: rgb(0, 200, 0);
+}
+
+li::before {
+    content: " Mr ";
+    color: rgb(255, 0, 0);
+}
+
+li::marker {
+    color: rgb(0, 0, 255);
+}
+
+p::selection {
+    background: yellow;
+    color: aliceblue;
+}
+
+.box {
+    border: 1px solid red;
+    display: flex;
+    width: 100px;
+    height: 100px;
+    justify-content: center;
+    align-items: center;
+    margin: 1em;
+}
+
+.a {
+    background-color: red;
+}
+
+.b {
+    background-color: green;
+}
+

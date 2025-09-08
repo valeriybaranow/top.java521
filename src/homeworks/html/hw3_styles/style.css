@@ -1,0 +1,53 @@
+body {
+    padding: 0;
+    margin: 4px 10px;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    background-color: #808080;
+    width: 313px;
+}
+
+ul li {
+    list-style: none;
+    width: 80px;
+    height: 80px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-left: 12px;
+    padding: 4px 5px 4px 100px;
+    line-height: 80px;
+    font-size: 22px;
+    color: white;
+    text-transform: uppercase;
+    width: 194px;
+}
+
+
+ul li:hover {
+    background-color: #646161;
+    cursor: pointer;
+    width: 194px;
+}
+
+ul li.edit {
+    background-image: url(./edit.png);
+}
+
+ul li.favotines {
+    background-image: url(./favorites.png);
+}
+
+ul li.history {
+    background-image: url(./history.png);
+}
+
+ul li.security {
+    background-image: url(./security.png);
+}
+
+ul li.settings {
+    background-image: url(./settings.png);
+}

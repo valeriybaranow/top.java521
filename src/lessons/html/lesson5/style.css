@@ -1,0 +1,87 @@
+* {
+    font-size: 20px;
+}
+
+.box {
+    background-color: yellow;
+    font-size: 30px;
+    display: flex;
+}
+
+.container {
+    background-color: yellow;
+    height: 1000px;
+    color: blue;
+}
+
+.container h1 {
+    background-color: rgb(87, 187, 129);
+    color: blue;
+}
+
+.container span {
+    color: blue;
+}
+
+.container p {
+    background-color: yellow;
+}
+
+.container .ok {
+    border: 2px solid black;
+    width: -moz-max-content;
+    width: max-content;
+    margin: 5px;
+    padding: 5px;
+    cursor: pointer;
+    color: blue;
+    border-radius: 12px;
+    background-color: rgb(216, 196, 196);
+}
+
+.container .ok:hover {
+    background-color: green;
+}
+
+.container .test {
+    border: 2px solid black;
+    width: -moz-max-content;
+    width: max-content;
+    margin: 5px;
+    padding: 5px;
+    cursor: pointer;
+    color: blue;
+    border-radius: 12px;
+    background-color: rgb(204, 62, 62);
+}
+
+.container .da {
+    border: 2px solid black;
+    width: -moz-max-content;
+    width: max-content;
+    margin: 5px;
+    padding: 5px;
+    cursor: pointer;
+    color: blue;
+    border-radius: 12px;
+    background-color: rgb(59, 139, 86);
+}
+
+.container .da {
+    color: red;
+    color: black;
+}
+
+.btn {
+    border: 2px solid black;
+    width: -moz-max-content;
+    width: max-content;
+    margin: 5px;
+    padding: 5px;
+    cursor: pointer;
+    color: red;
+    border-radius: 12px;
+    background-color: green;
+}
+
+/*# sourceMappingURL=style.css.map */

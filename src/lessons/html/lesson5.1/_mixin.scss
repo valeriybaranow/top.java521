@@ -1,0 +1,30 @@
+@mixin button-style($bg-color, $text-color) {
+  border: 2px solid black;
+  width: max-content;
+  margin: 5px;
+  padding: 5px;
+  cursor: pointer;
+  color: $text-color;
+  border-radius: 12px;
+  background-color: $bg-color;
+}
+
+@mixin button-style-with-hover($bg-color, $text-color, $hov) {
+  @include button-style($bg-color, $text-color);
+  &:hover {
+    background-color: $hov;
+  }
+}
+
+@mixin btns-types($type) {
+  @if $type == mobile and test {
+    color: red
+  } @else if $type == tanlet {
+    color: blue
+  }
+  @if $type == desktop {
+    color: rgb(2, 22, 2)
+  } @else {
+    color: black;
+  }
+}
