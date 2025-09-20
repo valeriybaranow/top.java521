@@ -1,0 +1,12 @@
+section.list {
+    column-count: 3;
+    column-gap: 100px;
+}
+
+section.list article {
+    border: 1px solid #000;
+}
+
+section.list article img {
+    width: 100%;
+}

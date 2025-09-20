@@ -1,0 +1,28 @@
+.list {
+    background-color: #b1dae8;
+    width: max-content;
+    padding: 20px;
+    margin: auto;
+    /* display: grid; */
+    columns: 5 auto;
+}
+
+.list .item {
+    width: min-content;
+    background-color: white;
+    height: fit-content;
+    margin-bottom: 10px;
+}
+
+.list .item .content .title {
+    font-size: 20px;
+    line-height: 40px;
+}
+
+.list .item .content .text {
+    color: gray;
+}
+
+.list .content {
+    padding: 10px;
+}

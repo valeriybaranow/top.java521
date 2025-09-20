@@ -1,0 +1,39 @@
+.container {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas: "logo header header"
+                            "left content  content"
+                            "left content  content";
+}
+
+.box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: red;
+}
+
+
+.logo {
+    grid-area: logo;
+}
+
+
+.left {
+    grid-area: left;
+}
+
+
+.header {
+    grid-area: header;
+}
+
+
+.content {
+    grid-area: content;
+}
+
+.foter {
+    grid-area: foter;
+}
